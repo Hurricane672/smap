@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-from cgitb import html
 from urllib.parse import quote
 import re
 import requests
