@@ -55,7 +55,7 @@ def Search(Keywords):
             filt=re.compile(r'C+\w*-\d+-\d+',re.S)
             # print(content[4].startswith('C'))
             flag=len(re.findall(filt,content[1]))
-            if flag==0 and content[4]=='"无CVE"':
+            if flag==0 and content[4]=='"No CVE detected."':
                 continue
             
             Vulnerability=' '.join((content[4],content[1],content[3]))
