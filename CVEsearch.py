@@ -62,10 +62,10 @@ def Search(Keywords):
             print(Vulnerability)
             contents.append(Vulnerability)
         page+=1
-    print(json.dumps(contents))
+    # print(json.dumps(contents))
         #返回的是json字符串，用loads恢复为list
-    return json.dumps(contents)
+    return contents
  
 if __name__ == "__main__":
     result=Search(Keywords='Apache tomcat ')
-    print(json.loads(result))
+    # print(json.loads(result))
