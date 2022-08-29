@@ -6,9 +6,9 @@ read -p "请输入需要扫描的服务器ip:" server_ip
 read -p "请输入掩码长度:" netmask
 read -p "请输入扫描起始端口:" port_start
 read -p "请输入扫描的结束端口:" port_end
-#server_ip="10.0.0.1"
+#server_ip="127.0.0.1"
 #netmask="24"
-#port_start="80"
+#port_start="443"
 #port_end="443"
 #检测输入合法性
 #declare -i port_start
@@ -40,14 +40,15 @@ continue_portnum=$port_start
 scanned_port_num=0
 #记录扫描耗时
 start_time=$(date +%s)
-echo "-------------------------------------------------------" >> $FILENAME
-echo "开始进行扫描 ip范围:${host_min}~${host_max} 掩码长度:${netmask} 共有:${host_num}个ip" >> $FILENAME
-echo "扫描端口范围:${port_start}~${port_end} 范围内:${port_num}个端口 总共:${total_port_num}个端口" >> $FILENAME
+#echo "-------------------------------------------------------" >> $FILENAME
+#echo "开始进行扫描 ip范围:${host_min}~${host_max} 掩码长度:${netmask} 共有:${host_num}个ip" >> $FILENAME
+#echo "扫描端口范围:${port_start}~${port_end} 范围内:${port_num}个端口 总共:${total_port_num}个端口" >> $FILENAME
 #暂时不考虑服务器禁止icmp
 #ping超时设为1s
 function pingCheck() {
   echo "检测${1}的在线情况"
-  ping $1 -q -c2 -W 1  > /dev/null
+  #ping $1 -q -c2 -W 1  > /dev/null
+  fping -c1 -t500 $1 > /dev/null
   if [ $? -eq 0 ]; then
     echo "${1}在线"
     return 0
@@ -74,8 +75,8 @@ function onCtrlC () {
   fi
   # touch ".${FILENAME}_stat"
   end_time=$(date +%s)
-  echo "服务器列表 ${find_servers[*]}" | tee -a $FILENAME
-  echo -e "手动中止扫描,耗时$(($end_time - $start_time))秒,对${host_min}~${host_max}的${port_start}~${port_end}端口扫描,共找到${find_count}个可用端口${find_server_count}个可用服务器" | tee -a $FILENAME
+ # echo "服务器列表 ${find_servers[*]}" | tee -a $FILENAME
+ # echo -e "手动中止扫描,耗时$(($end_time - $start_time))秒,对${host_min}~${host_max}的${port_start}~${port_end}端口扫描,共找到${find_count}个可用端口${find_server_count}个可用服务器" | tee -a $FILENAME
   exit 0
 }
 #二重循环.扫描每个ip的指定端口范围
@@ -86,6 +87,7 @@ find_servers=()
 #要将字符串列表转变为数组，只需要在前面加()，所以关键是将分隔符转变为空格分隔，这个数组用于递增切换地址
 scanip_arr=($(echo $host_min | tr '.' ' '))
 sip=1
+echo "{" >> $FILENAME
 for ((j = 1; j <= $host_num ; j++))
 do
 #当前服务器不是中转服务器
@@ -98,30 +100,32 @@ pingCheck ${scan_ip}
 pc=$?
 #如果ping得通才扫描，不然跳过
 if [ $pc -eq 0 ]; then
-  echo "开始对ip:${scan_ip} 进行扫描 当前进度(${j}/${host_num})"
+  #echo "开始对ip:${scan_ip} 进行扫描 当前进度(${j}/${host_num})"
   sport=0
     for ((i = $port_start ; i <= $port_end ; i++))
     do
       let scanned_port_num++
       let sport++
-      `nc -v -z -w 5 ${scan_ip} ${i}`
-      res=$?
-      #echo "$res  已经找到:$find_count个可用"
-      if [ $res == "0" ]; then
+      tcp_result=`(sleep 1;) | telnet $scan_ip $i|grep "]"|wc -l`
+      if [ $tcp_result -eq 0 ]; then
+      #如果测试udp则取消下列3行注释同时注释上述两行
+      #`nc -v -u -z -w 1 ${scan_ip} ${i}`
+      #udp_result=$?
+      #if [ $udp_result -eq 0 ]; then
         let find_count++
         #如果一个ip找到了开放端口，说明这个服务器可能有更多的端口开放，记录该服务器
         if [ $find_server_flag == false ]; then
-          echo "发现新的服务器:${scan_ip}" >> $FILENAME
+          #echo "发现新的服务器:${scan_ip}" >> $FILENAME
           find_server_flag=true
           let find_server_count++
           find_servers[${#find_servers[@]}]=$scan_ip
         fi
         #写入文件
-        #echo "ip:${scan_ip} 端口:${i}可用"  | tee -a $FILENAME
-        echo "ip:${scan_ip} 端口:${i}可用" >> $FILENAME
+        echo "\"${scan_ip}:${i}\"" >> $FILENAME
       fi
       #记录每个IP每个端口结果，默认只记录开放端口开放IP结果
-      #echo "ip:${scan_ip} 端口:${i} 情况:${res}" >> $FILENAME
+      #echo "\"${scan_ip}:${i}\"" >> $FILENAME
+      #echo "\"${scan_ip}:${i}\"${udp_result}" >> $FILENAME
       percentage=$(echo "scale=2; $scanned_port_num / $total_port_num" | bc)
       clear
       echo -e "ip进度:(${sip}/${host_num}) 端口进度:(${sport}/${port_num})正在扫描端口$i 已经找到:$find_count个可用端口,$find_server_count个服务器 总进度:($scanned_port_num/$total_port_num) $percentage%"
@@ -146,7 +150,6 @@ if [ ${scanip_arr[1]} -gt 255 ]; then
   scanip_arr[0]=$((${scanip_arr[0]}+1))
 fi
 done
+echo "}" >> $FILENAME
 end_time=$(date +%s)
-echo "服务器列表 ${find_servers[*]}" | tee -a $FILENAME
-echo "耗时$(($end_time - $start_time))秒,完成对${host_min}~${host_max}的${port_start}~${port_end}端口扫描,共找到${find_count}个可用端口${find_server_count}个可用服务器" | tee -a $FILENAME
 exit 0
