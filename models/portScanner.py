@@ -5,7 +5,7 @@ import threading
 port_list = []
 class PortScan(object):
     """docstring for PortScan"""
-    def __init__(self, ip_list=["127.0.0.1"], all_ports=False, rate=2000):
+    def __init__(self, ip_list=["127.0.0.1"], all_ports=False, rate=1000):
         super(PortScan, self).__init__()
         self.ip_list = ip_list
         self.rate = rate
@@ -20,22 +20,13 @@ class PortScan(object):
                 reader, writer = await asyncio.wait_for(conn, timeout=50)
                 return (ip, port, 'open')
             except Exception as e:
-                # print(e)
                 return (ip, port, 'close')
 
     def callback(self, future):
         ip,port,status = future.result()
         if status == "open":
-            #print(port)
             global port_list
             port_list.append(port)
-            # try:
-            #     if ip_addr in self.open_list:
-            #         self.open_list[ip_addr].append(port)
-            #     else:
-            #         self.open_list[ip_addr] = [port]
-            # except Exception as e:
-            #     print(e)
         else:
             pass
 
@@ -54,21 +45,15 @@ class PortScan(object):
 
         loop.run_until_complete(asyncio.wait(tasks))
         global port_list
-        print(port_list)
+        port_list.sort()
         return port_list
-        #print(self.open_list)
 
 
 def main(target):
     #target为传入IP,rate为并发频率
-    # 暂时开启了输出端口列表
     rate = 1000
-    #now = time.time
-
-    #start_ip = now()
     ps = PortScan(target,True,rate)
-    ps.async_tcp_port_scan()
-    #print("Time:",now()-start_ip)
+    return ps.async_tcp_port_scan()
 if __name__ == '__main__':
     target = ["127.0.0.1"]
-    main(target)
+    print(main(target))
