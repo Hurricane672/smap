@@ -27,7 +27,8 @@ def ExtraScan(target):
     # SOCK_STREAM 指定使用面向流的 TCP 协议
     tcp_client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     tcp_client_socket.connect(ip_port)
-    #设定tcp接收
+    #设定tcp接收限时
+    # tcp_client_socket.setblocking(False)
     tcp_client_socket.settimeout(5)
 
     length=len(probeJson)
@@ -41,16 +42,22 @@ def ExtraScan(target):
             print("探针名字："+probeJson[i]['probename'])
 
             send=probeJson[i]['probestring']
-            tcp_client_socket.send(send.encode("utf-8"))
+
+            # print(send.encode("utf-8")+b'\x00')
+            # tcp_client_socket.sendall(send.encode("utf-8")+b'\x00')
+
+            tcp_client_socket.sendall(send.encode("utf-8"))
+            tcp_client_socket.shutdown(1)
 
             print("发送信息:" + send)
             # print(probeJson[i]['ports'])  
-
+            # tcp_client_socket.shutdown()
 
             #编码为str
             # feedback = tcp_client_socket.recv(1024).decode("raw_unicode_escape")  # 每次最多接收1k字节
             try:
                 feedback = tcp_client_socket.recv(1024).decode("raw_unicode_escape")  # 每次最多接收1k字节
+                # feedback = tcp_client_socket.recv(1024).decode("utf-8")  # 每次最多接收1k字节
                 print('接收到数据:', feedback)
             except:
                 print('超时,跳过该探针')
@@ -58,17 +65,18 @@ def ExtraScan(target):
             
             print('接收到数据:', type(feedback))
 
+            print("正则表达式匹配中")
             for match in probeJson[i]["matches"]:
 
                 pattern = match["pattern"]
-                print("正则匹配式：" + pattern)
+                # print("正则匹配式：" + pattern)
 
                 Identif = re.match(pattern, feedback)
 
                 if Identif != None:
-                    print("匹配表达式:"+Identif)
-                    result = match["name"]
-                    print("识别结果为：" + result + " " + Identif.string)
+                    print("匹配表达式:"+Identif.string)
+                    result = match["name"]+str(match["versioninfo"])
+                    print("识别结果为：" + result)
                     tcp_client_socket.close()  # 关闭连接
 
                     return 1 #成功识别
