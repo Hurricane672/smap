@@ -1,6 +1,5 @@
 import ipaddress
 from ping3 import ping
-import encodings.idna
 import subprocess
 import re
 import prettytable
@@ -59,7 +58,7 @@ class Scan(threading.Thread):
     def run(self):
         delay = ping(dest_addr=self.ip, timeout=5)
         if delay:
-            print("发现在线主机" + self.ip)
+            # print("发现在线主机" + self.ip)
             delay = str(int(delay * 1000)) + "ms"
             mac = get_mac(self.ip)
             vendor = ""
@@ -91,7 +90,6 @@ def main(start_ip, end_ip):
     while 1:
         if not check_thread_alive(thread):
             break
-    info.sort()
     return info
 
 
