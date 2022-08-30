@@ -1,5 +1,5 @@
 def main(target):
-    result = ["apache 2.5","vue 1.0"]
+    result = ["apache 2.5"]
     return result
 
 if __name__ == '__main__':

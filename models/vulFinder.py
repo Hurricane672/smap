@@ -6,7 +6,7 @@ import json
 
 def main(target):
     result=Search(Keywords=target)
-    print(json.loads(result))
+    # print(json.loads(result))
 
 
 def get_html_content(url):
@@ -63,10 +63,10 @@ def Search(Keywords):
                 continue
 
             Vulnerability = ' '.join((content[4], content[1], content[3]))
-            print(Vulnerability)
+            # print(Vulnerability)
             contents.append(Vulnerability)
         page += 1
-    print(json.dumps(contents))
+    # print(json.dumps(contents))
     # 返回的是json字符串，用loads恢复为list
     return json.dumps(contents)
 

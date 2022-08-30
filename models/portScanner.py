@@ -1,5 +1,5 @@
 def main(target):
-    result = [21, 22, 80, 443, 9999]
+    result = [21, 9999]
     return result
 
 
