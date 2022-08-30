@@ -17,7 +17,7 @@
 
     内容描述：该网段中存活的ip地址列表
     
-    举例说明：[{"ip1":["hostname", "mac_address", "delay"]},{"ip2":["hostname", "mac_address", "delay"]}, ...]
+    举例说明：[{"ip1":["hostname", "mac_address", "vendor","delay"]},{"ip2":["hostname", "mac_address", "vendor", "delay"]}, ...]
     
     数据类型：字典列表list(dict(str:list), dict2(str:list), ...)
 

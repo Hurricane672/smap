@@ -6,6 +6,7 @@ import re
 import prettytable
 import sys
 import threading
+import requests
 
 
 def get_ip_range(start_ip, end_ip):
@@ -42,6 +43,13 @@ def get_mac(ip_addr):
         return ""
 
 
+def get_vendor(mac_addr):
+    res = requests.get(url=r'https://mac.bmcx.com/' + mac_addr + '__mac/')
+    pattern = r"<td bgcolor=\"#FFFFFF\" style=\"font-size:16px;\">(.*)</td>"
+    vendor = re.findall(pattern, res.text)
+    return vendor[0]
+
+
 class Scan(threading.Thread):
     def __init__(self, ip_addr, host_info: list):
         self.ip = ip_addr
@@ -49,18 +57,20 @@ class Scan(threading.Thread):
         threading.Thread.__init__(self)
 
     def run(self):
-        delay = ping(dest_addr=self.ip, timeout=1)
+        delay = ping(dest_addr=self.ip, timeout=5)
         if delay:
+            print("发现在线主机" + self.ip)
             delay = str(int(delay * 1000)) + "ms"
             mac = get_mac(self.ip)
+            vendor = ""
             try:
                 hostname = get_hostname(self.ip)
             except:
                 hostname = "unknown"
-            # print("{}, 在线, 名称: {}|".format(self.ip_addr, hostname))
-            self.data.append({self.ip: [hostname, mac, delay]})
+            if len(mac) != 0:
+                vendor = get_vendor(mac)
+            self.data.append({self.ip: [hostname, mac, vendor, delay]})
         else:
-            # print("{}, 不在线|".format(self.ip_addr))
             pass
 
 
@@ -81,27 +91,28 @@ def main(start_ip, end_ip):
     while 1:
         if not check_thread_alive(thread):
             break
+    info.sort()
     return info
 
 
 if __name__ == "__main__":
-    pass
-    # start_ip = "10.122.210.0"
-    # end_ip = "10.122.210.255"
-    # ip_addrs = get_ip_range(start_ip, end_ip)
-    # info = []
-    # thread = []
-    # for ip_addr in ip_addrs:
-    #     td = Scan(ip_addr=ip_addr, host_info=info)
-    #     td.start()
-    #     thread.append(td)
-    # while 1:
-    #     if not check_thread_alive():
-    #         break
-    # print(info)
+    start = "10.122.210.0"
+    end = "10.122.210.255"
+    ip_addrs = get_ip_range(start, end)
+    info = []
+    thread = []
+    for ip_addr in ip_addrs:
+        td = Scan(ip_addr=ip_addr, host_info=info)
+        td.start()
+        thread.append(td)
+    while 1:
+        if not check_thread_alive(thread):
+            break
+    for item in info:
+        print(item)
 
     # ipaddrs = get_ip_range(start, end)
-    # pt = prettytable.PrettyTable(field_names=("IP", "机器名", "MAC地址", "延时"))
+    # pt = prettytable.PrettyTable(field_names=("IP", "机器名", "MAC地址", "生产厂商", "延时"))
     # data = []
     # thread = []
     # for ip in ipaddrs:

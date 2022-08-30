@@ -15,7 +15,7 @@ def main():
     # start_ip = input("Enter the start_ip: ")
     # end_ip = input("Enter the end_ip: ")
     start_ip = "10.122.210.1"
-    end_ip = "10.122.210.30"
+    end_ip = "10.122.210.255"
     info = hostScanner.main(start_ip, end_ip)
     ips = info.keys()
     print(info)
