@@ -62,7 +62,7 @@ def appScan(target):
 
     print('接收到数据:', feedback)
     print('接收到数据:', type(feedback))
-    # print('接收到数据:', feedback.decode('utf-8'))
+    print('接收到数据:', feedback.decode('utf-8'))
     # print('接收到数据:', str(feedback,encoding='utf-8'))
 
 
@@ -78,7 +78,7 @@ def appScan(target):
     return result
 
 if __name__ == '__main__':
-    target = ['10.122.251.228',3306]
+    target = ['10.21.145.59',3306]
     appScan(target)
 
     main(target)
