@@ -8,7 +8,8 @@
 
     内容描述：ip网段
     
-    举例说明：形如 192.168.1.1-192.168.2.128
+    举例说明：(start_ip, end_ip)
+    形如 (192.168.1.1, 192.168.2.128)
     
     数据类型：字符串
 
@@ -16,11 +17,11 @@
 
     内容描述：该网段中存活的ip地址列表
     
-    举例说明：{"ip1":"system_info1","ip2":"system_info2","ip3":"system_info3",...}
+    举例说明：{"ip1":["hostname", "mac_address", "delay"],"ip2":["hostname", "mac_address", "delay"],"ip3":["hostname", "mac_address", "delay"]",...}
     
-    数据类型：dict(str:str)
+    数据类型：dict(str:list)
 
-若system_info较多，也可以是列表。
+system_info为字典类型。
 
 ### 2、端口扫描接口 portScanner
 
