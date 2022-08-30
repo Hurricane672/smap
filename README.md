@@ -17,11 +17,9 @@
 
     内容描述：该网段中存活的ip地址列表
     
-    举例说明：{"ip1":["hostname", "mac_address", "delay"],"ip2":["hostname", "mac_address", "delay"],"ip3":["hostname", "mac_address", "delay"]",...}
+    举例说明：[{"ip1":["hostname", "mac_address", "delay"]},{"ip2":["hostname", "mac_address", "delay"]}, ...]
     
-    数据类型：dict(str:list)
-
-system_info为字典类型。
+    数据类型：字典列表list(dict(str:list), dict2(str:list), ...)
 
 ### 2、端口扫描接口 portScanner
 
