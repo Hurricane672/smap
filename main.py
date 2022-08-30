@@ -12,9 +12,11 @@ def topo(ips):
 
 
 def main():
-    # targets = input("Enter the ip range: ")
-    targets = "192.168.1.2-192.168.2.2"
-    info = hostScanner.main(targets)
+    # start_ip = input("Enter the start_ip: ")
+    # end_ip = input("Enter the end_ip: ")
+    start_ip = "10.122.210.1"
+    end_ip = "10.122.210.30"
+    info = hostScanner.main(start_ip, end_ip)
     ips = info.keys()
     print(info)
     # p = multiprocessing.Process(targets=topo,args=(ips,))
