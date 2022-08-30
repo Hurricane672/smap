@@ -36,7 +36,10 @@ def get_mac(ip_addr):
     if cmd:
         pattern = "MAC 地址 = (.*)\r"
         mac = re.findall(pattern, cmd)
-    return mac
+    if len(mac) != 0:
+        return mac[0]
+    else:
+        return ""
 
 
 class Scan(threading.Thread):
@@ -61,9 +64,9 @@ class Scan(threading.Thread):
             pass
 
 
-def check_thread_alive():
-    for th in thread:
-        if th.is_alive():
+def check_thread_alive(thread):
+    for td in thread:
+        if td.is_alive():
             return True
 
 
@@ -72,14 +75,31 @@ def main(start_ip, end_ip):
     info = []
     thread = []
     for ip_addr in ip_addrs:
-        _thread = Scan(ip_addr=ip_addr, host_info=info)
-        _thread.start()
-        thread.append(_thread)
+        td = Scan(ip_addr=ip_addr, host_info=info)
+        td.start()
+        thread.append(td)
+    while 1:
+        if not check_thread_alive(thread):
+            break
     return info
 
 
 if __name__ == "__main__":
     pass
+    # start_ip = "10.122.210.0"
+    # end_ip = "10.122.210.255"
+    # ip_addrs = get_ip_range(start_ip, end_ip)
+    # info = []
+    # thread = []
+    # for ip_addr in ip_addrs:
+    #     td = Scan(ip_addr=ip_addr, host_info=info)
+    #     td.start()
+    #     thread.append(td)
+    # while 1:
+    #     if not check_thread_alive():
+    #         break
+    # print(info)
+
     # ipaddrs = get_ip_range(start, end)
     # pt = prettytable.PrettyTable(field_names=("IP", "机器名", "MAC地址", "延时"))
     # data = []

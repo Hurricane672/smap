@@ -13,15 +13,17 @@ def output(text):
 def main():
     # start_ip = input("Enter the start_ip:")
     # end_ip = input("Enter the end_ip:")
-    start = "10.122.210.0"
-    end = "10.122.210.255"
+    start = "10.122.210.1"
+    end = "10.122.210.20"
     info = hostScanner.main(start, end)
     output(info)
     ipPortDict = {}
+    ip_list = []
     for item in info:
-        ip = item.key
+        ip_list.append(list(item.keys())[0])
+    for ip in ip_list:
         ports = portScanner.main(ip)
-        ipPortDict[ip] = [sysInfo] + ports
+        ipPortDict[ip] = ports
     print(ipPortDict)
 
 
