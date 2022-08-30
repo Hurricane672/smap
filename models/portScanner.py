@@ -59,10 +59,9 @@ class PortScan(object):
         #print(self.open_list)
 
 
-if __name__ == '__main__':
+def main(target):
     #target为传入IP,rate为并发频率
     # 暂时开启了输出端口列表
-    target = ["127.0.0.1"]
     rate = 1000
     #now = time.time
 
@@ -70,3 +69,6 @@ if __name__ == '__main__':
     ps = PortScan(target,True,rate)
     ps.async_tcp_port_scan()
     #print("Time:",now()-start_ip)
+if __name__ == '__main__':
+    target = ["127.0.0.1"]
+    main(target)
