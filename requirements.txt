@@ -1,0 +1,4 @@
+requests~=2.28.0
+ipaddress~=1.0.23
+prettytable~=3.4.0
+ping3~=4.0.3

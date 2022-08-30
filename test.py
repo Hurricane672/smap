@@ -35,22 +35,22 @@ def main(ips):
     pool.close()
     pool.join()
 
-    # ip = [[], [], [], []]
+    # ip_addr = [[], [], [], []]
     # for i in range(len(ips)):
     #     if i % 4 == 0:
-    #         ip[0].append(ips[i])
+    #         ip_addr[0].append(ips[i])
     #     elif i % 4 == 1:
-    #         ip[1].append(ips[i])
+    #         ip_addr[1].append(ips[i])
     #     elif i % 4 == 2:
-    #         ip[2].append(ips[i])
+    #         ip_addr[2].append(ips[i])
     #     else:
-    #         ip[3].append(ips[i])
+    #         ip_addr[3].append(ips[i])
     # p = []
     # for i in range(0, 4):
-    #     print(ip[i])
-    #     p.append(multiprocessing.Process(target=tracert, args=(ip[i], str(i))))
+    #     print(ip_addr[i])
+    #     p.append(multiprocessing.Process(target=tracert, args=(ip_addr[i], str(i))))
     #     p[i].daemon = False
-    #     p[i].start()
+    #     p[i].start_ip()
     #
     # l = []
     # for i in range(0, 4):

@@ -30,10 +30,10 @@ class PortScan(object):
             global port_list
             port_list.append(port)
             # try:
-            #     if ip in self.open_list:
-            #         self.open_list[ip].append(port)
+            #     if ip_addr in self.open_list:
+            #         self.open_list[ip_addr].append(port)
             #     else:
-            #         self.open_list[ip] = [port]
+            #         self.open_list[ip_addr] = [port]
             # except Exception as e:
             #     print(e)
         else:
@@ -66,7 +66,7 @@ if __name__ == '__main__':
     rate = 1000
     #now = time.time
 
-    #start = now()
+    #start_ip = now()
     ps = PortScan(target,True,rate)
     ps.async_tcp_port_scan()
-    #print("Time:",now()-start)
+    #print("Time:",now()-start_ip)

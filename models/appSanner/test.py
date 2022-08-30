@@ -26,7 +26,7 @@ from xml.dom.minidom import Identified
 
 
 def appScan(target):
-    # ip=target[0]
+    # ip_addr=target[0]
     # port=target[1]
     ip_port = (target[0], target[1])
     print(ip_port)
