@@ -1,24 +1,11 @@
 import json
 import socket
 import re
-import eventlet
-import time
 import traceback
-import eventlet
-from wrapt_timeout_decorator import timeout
-from func_timeout import func_set_timeout
-
-
-#读取json文件
-# 要用项目根的相对路径
-
-
-    # print(probeJson)
-    # print(type(probeJson))
 
 def ExtraScan(target):
     result = {"service": "", "version": ""}
-    with open('models/appSanner/nmap.json', encoding='utf-8') as jsonfile:
+    with open('./nmap.json', encoding='utf-8') as jsonfile:
     # 读取json文件至代码中
         probeJson = json.load(jsonfile)
 
