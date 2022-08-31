@@ -93,11 +93,11 @@
 
 **Out：**
 
-    内容描述：涉及到的应用列表
+    内容描述：涉及到的应用服务和版本
     
-    举例说明：["apache 2.5","vue 1.0"...]
+    举例说明：{"service":"", "version":""}
     
-    数据类型：list[str]，注意，英文名称和版本号之间使用空格隔开！
+    数据类型：dict{str,str}，注意，英文名称和版本号之间使用空格隔开！
 
 
 
@@ -115,8 +115,43 @@
 
 ```
 内容描述：端口对应的指纹列表
-举例说明：{22:["cdnxxxx", "cmsxxxx", "frameworkxxxx","frontendxxxx", "lang","server", "systemxxxx",“wafxxxx"],3306:["cdnxxxx", "cmsxxxx", "frameworkxxxx","frontendxxxx", "langxxxx","serverxxxx", "systemxxxx",“wafxxxx"],9999:["cdnxxxx", "cmsxxxx", "frameworkxxxx","frontendxxxx","langxxxx","serverxxxx", "systemxxxx",“wafxxxx"]}
-数据类型dict{int,list(str)}
+举例说明：
+[
+	{
+    	"port":"22",
+        "cdn":"cdnxxxx",
+        "cms":"cmsxxxx",
+        "framework":"frameworkxxxx",
+        "frontend":"frontendxxxx", 
+        "lang":"langxxx",
+        "server":"serverxxxx",
+        "system":"systemxxxx",
+        "waf":"wafxxxx"
+    },
+    {
+    	"port":"80",
+        "cdn":"cdnxxxx",
+        "cms":"cmsxxxx",
+        "framework":"frameworkxxxx",
+        "frontend":"frontendxxxx", 
+        "lang":"langxxx",
+        "server":"serverxxxx",
+        "system":"systemxxxx",
+        "waf":"wafxxxx"
+    },
+    {
+    	"port":"9999",
+        "cdn":"cdnxxxx",
+        "cms":"cmsxxxx",
+        "framework":"frameworkxxxx",
+        "frontend":"frontendxxxx", 
+        "lang":"langxxx",
+        "server":"serverxxxx",
+        "system":"systemxxxx",
+        "waf":"wafxxxx"
+    },
+]
+数据类型： list(dict{str:str})
 ```
 
 
@@ -137,5 +172,5 @@
     
     举例说明：['"CVE-2022-34305" Apache Tomcat 跨站脚本漏洞（CVE-2022-34305） 2022-06-24 , "无CVE" Apache Tomcat拒绝服务漏洞（CNVD-2012-7096）']
     
-    数据类型：list
+    数据类型：list[str]
 
