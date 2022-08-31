@@ -17,6 +17,7 @@ def main():
     start_ip = "10.122.210.1"
     end_ip = "10.122.210.255"
     info = hostScanner.main(start_ip, end_ip)
+    ips = info.keys()
     print(info)
     # p = multiprocessing.Process(targets=topo,args=(ips,))
     # p.daemon = True
