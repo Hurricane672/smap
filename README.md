@@ -81,7 +81,7 @@
 
 
 
-## 三、单套接字扫描部分 routeGetter
+## 三、单套接字扫描部分 appScanner
 
 **In**：
 
@@ -99,7 +99,29 @@
     
     数据类型：list[str]，注意，英文名称和版本号之间使用空格隔开！
 
-## 四、漏洞查询部分 vulFinder
+
+
+## 四、web应用扫描部分 webScanner
+
+**In:**
+
+```
+内容描述：ip加端口列表（两个参数）
+举例说明："192.168.1.1",[22，34，56，80，1000，1390，3306，65000]
+数据类型：str,list(int)
+```
+
+**Out:**
+
+```
+内容描述：端口对应的指纹列表
+举例说明：{22:["cdnxxxx", "cmsxxxx", "frameworkxxxx","frontendxxxx", "lang","server", "systemxxxx",“wafxxxx"],3306:["cdnxxxx", "cmsxxxx", "frameworkxxxx","frontendxxxx", "langxxxx","serverxxxx", "systemxxxx",“wafxxxx"],9999:["cdnxxxx", "cmsxxxx", "frameworkxxxx","frontendxxxx","langxxxx","serverxxxx", "systemxxxx",“wafxxxx"]}
+数据类型dict{int,list(str)}
+```
+
+
+
+## 五、漏洞查询部分 vulFinder
 
 **In**：
 
