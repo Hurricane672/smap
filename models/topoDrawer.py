@@ -1,19 +1,19 @@
 from models import routeGetter
 
-
 import networkx as nx
 import matplotlib.pyplot as plt
 
+
 def main(routeList):
-    b=len(routeList);
-    jiedian=[];
-    lengthcount=[];
+    b = len(routeList)
+    jiedian = []
+    lengthcount = []
     for i in range(b):
-       lengthcount.append(len(routeList[i]))
+        lengthcount.append(len(routeList[i]))
 
     for i in range(b):
         for j in range(lengthcount[i]):
-          jiedian.append(routeList[i][j])
+            jiedian.append(routeList[i][j])
 
     print(jiedian)
 
@@ -38,33 +38,33 @@ def main(routeList):
             s[i].append('0')
     print(s)
 
-    lst=res
+    lst = res
     for i in range(1, len(lst)):
-            x = lst[i]
-            left = 0
-            right = i-1
-            mid = int(right / 2)
-            while left < right:
-                if lst[mid] > x:
-                    right = mid-1
-                elif lst[mid] <= x:
-                    left = mid+1
-                mid = int((left + right) / 2)
-            if lst[mid] <= x:
-                index = mid+1
-            else:
-                index = mid
+        x = lst[i]
+        left = 0
+        right = i - 1
+        mid = int(right / 2)
+        while left < right:
+            if lst[mid] > x:
+                right = mid - 1
+            elif lst[mid] <= x:
+                left = mid + 1
+            mid = int((left + right) / 2)
+        if lst[mid] <= x:
+            index = mid + 1
+        else:
+            index = mid
 
-            for j in range(i, index, -1):
-                lst[j-1], lst[j] = lst[j], lst[j-1]
+        for j in range(i, index, -1):
+            lst[j - 1], lst[j] = lst[j], lst[j - 1]
 
     for i in range(b):
         for j in range(len(routeList[i]) - 1):
-            s[res.index(routeList[i][j])][res.index(routeList[i][j + 1])]= '1'
+            s[res.index(routeList[i][j])][res.index(routeList[i][j + 1])] = '1'
     print(s)
 
     word = res
-    A =s
+    A = s
     G = nx.DiGraph()
 
     num = len(res)
@@ -91,5 +91,5 @@ def main(routeList):
 
 
 if __name__ == '__main__':
-    targets = [['192.168.1.2','192.168.1.1'] , ['192.168.1.2'] , ['192.168.1.2','192.168.1.3']]
+    targets = [['192.168.1.2', '192.168.1.1'], ['192.168.1.2'], ['192.168.1.2', '192.168.1.3']]
     main(targets)
