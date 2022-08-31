@@ -46,8 +46,15 @@ def ExtraScan(target):
             # print(send.encode("utf-8")+b'\x00')
             # tcp_client_socket.sendall(send.encode("utf-8")+b'\x00')
 
-            tcp_client_socket.sendall(send.encode("utf-8"))
-            tcp_client_socket.shutdown(1)
+            send = eval(repr(send).replace('\\\\', '\\'))
+            # print(send)
+            try:
+                tcp_client_socket.sendall(send.encode("utf-8"))
+            except:
+                traceback.print_exc()
+                print('发送出错')
+                continue
+            # tcp_client_socket.shutdown(1)
 
             print("发送信息:" + send)
             # print(probeJson[i]['ports'])  
@@ -63,7 +70,7 @@ def ExtraScan(target):
                 print('超时,跳过该探针')
                 continue
             
-            print('接收到数据:', type(feedback))
+            # print('接收到数据:', type(feedback))
 
             print("正则表达式匹配中")
             for match in probeJson[i]["matches"]:
@@ -75,16 +82,19 @@ def ExtraScan(target):
 
                 if Identif != None:
                     print("匹配表达式:"+Identif.string)
-                    result = match["name"]+str(match["versioninfo"])
-                    print("识别结果为：" + result)
+                    result = match["name"]
+                    verinfo=str(match["versioninfo"])
+                    print("识别结果为：" + result+result)
                     tcp_client_socket.close()  # 关闭连接
 
-                    return 1 #成功识别
+                    return result #成功识别
     tcp_client_socket.close()
     return 0 #识别失败
 
 if __name__ == '__main__':
-    target = ['10.21.145.59',80]
+    target = ['10.21.145.59',443]
+    # target = ['jwgl.bupt.edu.cn',80]
+    # target = ['10.122.220.161',80]
     ExtraScan(target)
 
     # main(target)

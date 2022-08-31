@@ -23,11 +23,11 @@ def TCP_Scan(target):
     # 每次最多接收1k字节,转化为str
     feedback = tcp_client_socket.recv(1024).decode('UTF-8', 'ignore') # 若发完包后没有返回数据，会停留等待很长时间
 
-    # print('接收到数据:', feedback)
+    print('接收到数据:', feedback)
 
     for i in probe["matches"]:
         pattern = i["pattern"]
-        # print("正则匹配式：" + pattern)
+        print("正则匹配式：" + pattern)
         Identify = re.match(pattern, feedback)
 
         if Identify != None:

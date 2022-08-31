@@ -27,18 +27,19 @@ class PortScan(object):
         if status == "open":
             global port_list
             port_list.append(port)
+            #print(port)
         else:
             pass
 
     def async_tcp_port_scan(self):
         ports = [port for port in range(0,65535)]
         ip_port_list = [(ip,int(port)) for ip in self.ip_list for port in ports]
-
         sem = asyncio.Semaphore(self.rate) # 限制并发量
         loop = asyncio.get_event_loop()
 
         tasks = list()
         for ip_port in ip_port_list:
+            #print(ip_port)
             task = asyncio.ensure_future(self.async_port_check(sem, ip_port))
             task.add_done_callback(self.callback)
             tasks.append(task)
@@ -52,8 +53,9 @@ class PortScan(object):
 def main(target):
     #target为传入IP,rate为并发频率
     rate = 1000
-    ps = PortScan(target,True,rate)
+    #传参出错修复
+    ps = PortScan([target],True,rate)
     return ps.async_tcp_port_scan()
 if __name__ == '__main__':
-    target = ["127.0.0.1"]
+    target = ['127.0.0.1']
     print(main(target))
