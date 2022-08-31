@@ -7,7 +7,8 @@ import re
 def TCP_Scan(target):
 
     result = {"service": "", "version": ""}
-    with open('./nmap.json', encoding='utf-8') as jsonfile:
+    with open('models/appSanner/nmap.json', encoding='utf-8') as jsonfile:
+    # with open('./nmap.json', encoding='utf-8') as jsonfile:
         probeJson = json.load(jsonfile)
     ip_port = (target[0], target[1])
     # print(ip_port)
@@ -23,7 +24,7 @@ def TCP_Scan(target):
     try:
         feedback = tcp_client_socket.recv(1024).decode('utf-8', 'ignore') # 若发完包后没有返回数据，会停留等待很长时间
     except:
-        return 0
+        return result
 
     for i in probe["matches"]:
 
@@ -40,4 +41,4 @@ def TCP_Scan(target):
             # print("识别结果为：" + service + " " + Identify.string)
             tcp_client_socket.close()  # 关闭连接
             return result
-    return 0
+    return result
