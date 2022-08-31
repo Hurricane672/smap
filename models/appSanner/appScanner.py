@@ -4,6 +4,7 @@ import sys
 import traceback
 from TCP_NULL import TCP_Scan
 from ExtraScanMain import ExtraScan
+from spareScanner import spareScan
 
 def main(target):
     result = {"service": "", "version": ""}
@@ -21,8 +22,15 @@ def main(target):
                 return result
             else:
                 print("Step 2 Fail!")
-                print("Scan Service Fail!")
-                return result
+                #Step2: TCP特殊探针探查
+                result = spareScan(target,result)
+                if result["service"] != '':
+                    print("特殊探针识别结果:"+str(result))
+                    return result
+                else:
+                    print("Step 3 Fail!")
+                    print("Scan Service Fail!")
+                    return result
 
     except:
         traceback.print_exc()
@@ -32,8 +40,8 @@ def main(target):
 
 
 if __name__ == '__main__':
-    # target = ['10.21.145.59',3306]
-    target = ['10.122.214.150',135]
+    target = ['10.21.145.59',80]
+    # target = ['10.122.214.150',135]
     main(target)
 
 

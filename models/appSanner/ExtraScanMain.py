@@ -5,8 +5,8 @@ import traceback
 
 def ExtraScan(target,result):
 
-    # with open('models/appSanner/nmap.json', encoding='utf-8') as jsonfile:
-    with open('./nmap.json', encoding='utf-8') as jsonfile:
+    with open('models/appSanner/nmap.json', encoding='utf-8') as jsonfile:
+    # with open('./nmap.json', encoding='utf-8') as jsonfile:
     # 读取json文件至代码中
         probeJson = json.load(jsonfile)
 
