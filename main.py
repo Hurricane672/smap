@@ -4,7 +4,10 @@ from models import routeGetter
 from models import appScanner
 from models import topoDrawer
 from models import vulFinder
+from models import webScanner
 import multiprocessing
+
+
 
 
 def topo(ips):
@@ -42,4 +45,6 @@ def main():
 
 
 if __name__ == '__main__':
+    res = webScanner.main('https://blog.csdn.net/', [''])
+    print(res)
     main()
