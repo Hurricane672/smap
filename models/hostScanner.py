@@ -68,7 +68,7 @@ class Scan(threading.Thread):
                 hostname = "unknown"
             if len(mac) != 0:
                 vendor = get_vendor(mac)
-            self.data[self.ip]=([hostname, mac, vendor, delay])
+            self.data[self.ip] = ([hostname, mac, vendor, delay])
             #self.data[self.ip].append([hostname, mac, vendor, delay])
         else:
             pass
@@ -107,8 +107,7 @@ if __name__ == "__main__":
     while 1:
         if not check_thread_alive(thread):
             break
-    for item in info:
-        print(item)
+    print(info)
 
     # ipaddrs = get_ip_range(start, end)
     # pt = prettytable.PrettyTable(field_names=("IP", "机器名", "MAC地址", "生产厂商", "延时"))
