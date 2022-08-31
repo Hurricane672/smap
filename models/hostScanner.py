@@ -68,7 +68,8 @@ class Scan(threading.Thread):
                 hostname = "unknown"
             if len(mac) != 0:
                 vendor = get_vendor(mac)
-            self.data.append({self.ip: [hostname, mac, vendor, delay]})
+            self.data[self.ip]=([hostname, mac, vendor, delay])
+            #self.data[self.ip].append([hostname, mac, vendor, delay])
         else:
             pass
 
@@ -81,7 +82,7 @@ def check_thread_alive(thread):
 
 def main(start_ip, end_ip):
     ip_addrs = get_ip_range(start_ip, end_ip)
-    info = []
+    info = {}
     thread = []
     for ip_addr in ip_addrs:
         td = Scan(ip_addr=ip_addr, host_info=info)
@@ -97,7 +98,7 @@ if __name__ == "__main__":
     start = "10.122.210.0"
     end = "10.122.210.255"
     ip_addrs = get_ip_range(start, end)
-    info = []
+    info = {}
     thread = []
     for ip_addr in ip_addrs:
         td = Scan(ip_addr=ip_addr, host_info=info)

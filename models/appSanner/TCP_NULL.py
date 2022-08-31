@@ -17,22 +17,26 @@ def TCP_Scan(target):
 
     tcp_client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     tcp_client_socket.connect(ip_port)
-    send = probe["probestring"]
-    # send的数据需为bytes类型
-    tcp_client_socket.send(send.encode("utf-8"))
-    # 每次最多接收1k字节,转化为str
-    feedback = tcp_client_socket.recv(1024).decode('UTF-8', 'ignore') # 若发完包后没有返回数据，会停留等待很长时间
 
-    # print('接收到数据:', feedback)
+    tcp_client_socket.settimeout(1)
+
+    try:
+        feedback = tcp_client_socket.recv(1024).decode('utf-8', 'ignore') # 若发完包后没有返回数据，会停留等待很长时间
+    except:
+        return 0
 
     for i in probe["matches"]:
-        pattern = i["pattern"]
-        # print("正则匹配式：" + pattern)
-        Identify = re.match(pattern, feedback)
 
+        pattern = i["pattern"]
+        p = re.compile(pattern)
+        Identify = p.search(feedback)
+        # print(Identify)
         if Identify != None:
             result["service"] = i["name"]
-            result["version"] = Identify.string.strip()
+            p = re.compile(r'\d+\.(?:\d+\.)*\d+')
+            Identify = p.search(Identify.group())
+
+            result["version"] = Identify.group()
             # print("识别结果为：" + service + " " + Identify.string)
             tcp_client_socket.close()  # 关闭连接
             return result
