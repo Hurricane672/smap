@@ -1,6 +1,4 @@
 from models import routeGetter
-
-
 import networkx as nx
 import matplotlib.pyplot as plt
 
