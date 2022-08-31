@@ -1,23 +1,14 @@
 import json
 import socket
 import re
-import eventlet
-import time
 import traceback
-import eventlet
-from wrapt_timeout_decorator import timeout
-from func_timeout import func_set_timeout
-
-
-#读取json文件
-# 要用项目根的相对路径
-with open('models/appSanner/nmap.json', encoding='utf-8') as jsonfile:
-    # 读取json文件至代码中
-    probeJson = json.load(jsonfile)
-    # print(probeJson)
-    # print(type(probeJson))
 
 def ExtraScan(target):
+    result = {"service": "", "version": ""}
+    with open('./nmap.json', encoding='utf-8') as jsonfile:
+    # 读取json文件至代码中
+        probeJson = json.load(jsonfile)
+
     ip=target[0]
     port=target[1]
     ip_port = (ip,port)
@@ -77,22 +68,35 @@ def ExtraScan(target):
 
                 pattern = match["pattern"]
                 # print("正则匹配式：" + pattern)
+                p = re.compile(pattern)
+                Identify = p.search(feedback)
 
-                Identif = re.match(pattern, feedback)
+                if Identify != None:
+                    print(Identify)
+                    result["service"] = match["name"]
+                    print(result["service"])
 
-                if Identif != None:
-                    print("匹配表达式:"+Identif.string)
-                    result = match["name"]
-                    verinfo=str(match["versioninfo"])
-                    print("识别结果为：" + result+result)
+                    p = re.compile(r'\d+\.(?:\d+\.)*\d+')
+                    Identify = p.search(Identify.group())
+
+                    result["version"] = Identify.group()
+                    print(result["version"])
+
+                    print("识别结果为："+str(result))
                     tcp_client_socket.close()  # 关闭连接
+
+                    # print("匹配表达式:"+Identify.group())
+                    # result = match["name"]
+                    # verinfo=str(match["versioninfo"])
+                    # print("识别结果为：" + result+verinfo)
+                    # tcp_client_socket.close()  # 关闭连接
 
                     return result #成功识别
     tcp_client_socket.close()
     return 0 #识别失败
 
 if __name__ == '__main__':
-    target = ['10.21.145.59',443]
+    target = ['10.21.145.59',80]
     # target = ['jwgl.bupt.edu.cn',80]
     # target = ['10.122.220.161',80]
     ExtraScan(target)
