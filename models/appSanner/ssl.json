@@ -1,7 +1,7 @@
 [{
     "protocol": "TCP",
     "probename": "NULL",
-    "probestring": "",
+    "probestring": "\\x00",
     "ports": [],
     "sslports": [],
     "totalwaitms": "3000",
