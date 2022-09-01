@@ -1,5 +1,5 @@
 from flask import Flask, redirect, request, url_for, render_template, jsonify
-from models import hostScanner, portScanner, routeGetter, appScanner, topoDrawer, vulFinder, webScanner
+from models import hostScanner, portScanner, routeGetter, topoDrawer, vulFinder, webScanner
 import os
 from flask_cors import CORS
 
