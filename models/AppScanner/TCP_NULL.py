@@ -6,9 +6,9 @@ import re
 
 def TCP_Scan(target,result):
 
-    # with open('models/appSanner/nmap.json', encoding='utf-8') as jsonfile:
+    with open('models/AppScanner/nmap.json', encoding='utf-8') as jsonfile:
     # with open('/models/AppScanner/nmap.json', encoding='utf-8') as jsonfile:
-    with open('AppScanner/nmap.json', encoding='utf-8') as jsonfile:
+    # with open('AppScanner/nmap.json', encoding='utf-8') as jsonfile:
         probeJson = json.load(jsonfile)
 
     ip_port = (target[0], target[1])

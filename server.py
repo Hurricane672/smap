@@ -25,9 +25,14 @@ def topoList():
         ipObj = {"id": ipA, "label": ipA}
         nodesArray.append(ipObj)
     nodesArray.append({"id": '127.0.0.1', "label": '127.0.0.1'})
+    print("hhhhhhhhhhhhllllllll:")
+    print(hostList)
     edgesArray = routeGetter.main(hostList)
 
+    print(edgesArray)
     for edge in edgesArray:
+        #print(edge)
+        #print(type(edge))
         if (edge["to"] not in hostList):
             hostList.append(edge["to"])
             nodesArray.append({"id": edge["to"], "label": edge["to"]})

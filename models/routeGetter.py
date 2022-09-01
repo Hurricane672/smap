@@ -34,8 +34,9 @@ def process(l):
     for i in r:
         d = {'from': i[0], 'to': i[1]}
         result.append(d)
-    print(r)
-    print(result)
+    return result
+    #print(r)
+    #print(result)
 
 
 def main(ips):
@@ -50,14 +51,13 @@ def main(ips):
     l = []
     for i in f.readlines():
         l.append(json.loads(i))
-    print(l)
+    #print(l)
     f.close()
     os.remove("./temp")
     print("Tracert finished.")
     # l = [['0', '1', '2', '3'], ['0', '1', '5', '6'], ['0', '1', '5', '7'], ['0', '4', '1', '8'], ['0', '9'], ['0'],
     #      ['9']]
-    process(l)
-    return l
+    return process(l)
 
 
 if __name__ == '__main__':
