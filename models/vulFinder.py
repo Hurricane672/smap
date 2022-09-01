@@ -37,7 +37,7 @@ def show_cve_content(res):
 def main(Keywords):
     num=0
     similarSearch=True
-    briefSearch=True
+    briefSearch=False
     matchware=r'([A-Z,a-z]+) *'
  
     Keyword=quote(Keywords)
@@ -67,7 +67,7 @@ def main(Keywords):
             if briefSearch==True:
                 if content[3]!='' and int(content[3][:4])<2019:
                     break
-            Vulnerability=' '.join((content[4],content[1],content[3]))
+            Vulnerability=[content[4],content[1],content[3]]
         
             print(Vulnerability)
             num+=1
@@ -117,7 +117,7 @@ def main(Keywords):
                 for i in range(0,10):
                     tmp=content[1].replace('.x','.%d' %i)
                     if len(re.findall(version,tmp))!=0:
-                        Vulnerability=' '.join((content[4],content[1],content[3]))
+                        Vulnerability=[content[4],content[1],content[3]]
                     
                         print(Vulnerability)
                         num+=1
@@ -126,7 +126,7 @@ def main(Keywords):
                 continue
             match=re.compile(r'1.4',re.S)
             if len(re.findall(match,content[1]))!=0:
-                Vulnerability=' '.join((content[4],content[1],content[3]))
+                Vulnerability=[content[4],content[1],content[3]]
             
                 print(Vulnerability)
                 num+=1
@@ -143,5 +143,5 @@ def main(Keywords):
     # return json.dumps(contents)
 
 if __name__ == "__main__":
-    result=main(Keywords='jQuery')
+    result=main(Keywords='jQuery 1.4.6')
     # print(re.findall(r'3\.4\.1','html 34.1'))
