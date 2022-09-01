@@ -72,7 +72,7 @@ class Scan(threading.Thread):
             if len(mac) != 0:
                 vendor = get_vendor(mac)
             self.data[self.ip] = ([hostname, mac, vendor, delay])
-            #self.data[self.ip].append([hostname, mac, vendor, delay])
+            # self.data[self.ip].append([hostname, mac, vendor, delay])
         else:
             pass
 
