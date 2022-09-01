@@ -39,6 +39,6 @@ def spareScan(target,result):
     return result
 
 if __name__ == '__main__':
-    target=['10.122.214.150',135]
+    target=['10.122.214.150',25]
     result = {"service": "", "version": ""}
     # print(spareScan(target,result))

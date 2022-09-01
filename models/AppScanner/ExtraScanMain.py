@@ -16,8 +16,10 @@ def ExtraScan(target,result):
     # socket.AF_INET 表示指定使用 IPv4 协议
     # SOCK_STREAM 指定使用面向流的 TCP 协议
     tcp_client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    tcp_client_socket.connect(ip_port)
-
+    try:
+        tcp_client_socket.connect(ip_port)
+    except:
+        return result
     tcp_client_socket.settimeout(50)
     length=len(probeJson)
 
@@ -74,5 +76,6 @@ def ExtraScan(target,result):
 
                     return result #成功识别
     tcp_client_socket.close()
+    # print(result)
     return result #识别失败
 
