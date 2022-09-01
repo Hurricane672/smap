@@ -80,7 +80,11 @@ def main(Keywords):
     
     print('开始近似搜索，耗时较多')
     softWare=re.findall(matchware,Keywords)
-    version=re.search(r'([0-9]+\.?[0-9]?\.?.*?[0-9])',Keywords).group()
+    version=re.findall(r'([0-9]+\.?[0-9]?\.?.*?[0-9])',Keywords)
+    if len(version)>0:
+        version=version[0]
+    else:
+        version=''
     print((softWare[0],version))
 
     version=version.replace('.','\.')
@@ -143,5 +147,5 @@ def main(Keywords):
     # return json.dumps(contents)
 
 if __name__ == "__main__":
-    result=main(Keywords='jQuery 3.4.1')
+    result=main(Keywords='msrpc mircosotf')
     # print(re.findall(r'3\.4\.1','html 34.1'))
