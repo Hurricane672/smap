@@ -359,7 +359,19 @@ In:
 	}
 Out:
 	{
-		vuls:["xxxxxxx","xxxxxxxx"]
+		vuls: [
+        {
+            cve_id: "CVE-2022-34305",
+            info: 'Apache Tomcat 跨站脚本漏洞（CVE-2022-34305）',
+            date: '2022-06-24'
+        },
+        {
+            cve_id: "CVE-2022-34305",
+            info: 'Apache Tomcat 跨站脚本漏洞（CVE-2022-34305）',
+            date: '2022-06-24'
+        }
+         
+    ],
 	}
 ```
 
