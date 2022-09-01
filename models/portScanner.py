@@ -60,5 +60,6 @@ def main(target):
 
 
 if __name__ == '__main__':
-    target = '10.122.220.2'
+    target = '10.122.210.19'
     print(main(target))
+    #lhl_2507 9.1 finish testing

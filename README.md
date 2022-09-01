@@ -252,12 +252,15 @@ In:
 	}
 
 out:
-	{
-       "hostname":"xxxx",
-       "mac_address":""xxxx,
-       "vendor":"xxxx",
-       "delay":"xxxx"
-	}
+    {
+    	basicInform:{
+           "hostname":"xxxx",
+           "mac_address":""xxxx,
+           "vendor":"xxxx",
+           "delay":"xxxx"
+        }
+    }
+
 ```
 
 

@@ -39,7 +39,7 @@ def process(l):
 
 
 def main(ips):
-    ips = ["10.122.251.228", "10.122.210.19", "10.122.214.150", "10.122.220.161"]
+    #ips = ["10.122.251.228", "10.122.210.19", "10.122.214.150", "10.122.220.161"]
     pool = multiprocessing.Pool()
     pool.map(tracert, ips)
     pool.close()
@@ -59,5 +59,6 @@ def main(ips):
 
 
 if __name__ == '__main__':
-    ips = ["10.122.251.228", "10.122.210.19"]
+    ips = ["10.122.210.19"]
+    #print(main(ips))
     main(ips)

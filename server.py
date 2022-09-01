@@ -48,38 +48,108 @@ def topoList():
 
 @app.route('/basicInform', methods=['post'])
 def basicInform():
-    global hostInfo
-    inAddress = request.json.get("inAddress")
-    basicList = hostInfo[inAddress]
+    # global hostInfo
+    # inAddress = request.json.get("inAddress")
+    # basicList = hostInfo[inAddress]
+    #
+    # data = {"basicInform": {"hostname": basicList[0], "mac_address": basicList[1], "vendor": basicList[2],
+    #                         "delay": basicList[3]}}
 
-    return {"hostname": basicList[0], "mac_address": basicList[1], "vendor": basicList[2], "delay": basicList[3]}
+    testData = {
+        "basicInform": {
+            "hostname": "xx231xx",
+            "mac_address": "133xxx",
+            "vendor": "x32332xxx",
+            "delay": "xx23xx"
+        }
+    }
+    return testData
 
 
 @app.route('/appInform', methods=['post'])
 def appInform():
-    inAddress = request.json.get("inAddress")
-    portList = portScanner.main(inAddress)
-    appInformList = []
-    for port in portList:
-        appInformItem = appScanner.main([inAddress, port])
-        appInformItem["port"] = port
-        appInformList.append(appInformItem)
-    return appInformList
+    # inAddress = request.json.get("inAddress")
+    # portList = portScanner.main(inAddress)
+    # appInformList = []
+    # for port in portList:
+    #     appInformItem = appScanner.main([inAddress, port])
+    #     appInformItem["port"] = port
+    #     appInformList.append(appInformItem)
+
+    testData = {
+        "appInform": [{"port": 22,
+                       "service": "ssh",
+                       "version": "openssh 2.3.3"
+                       }, {
+                          "port": 23,
+                          "service": "ssh",
+                          "version": "openssh 2.3.3"
+                      }, {
+                          "port": 24,
+                          "service": "ssh",
+                          "version": "openssh 2.3.3"
+                      }, {
+                          "port": 25,
+                          "service": "ssh",
+                          "version": "openssh 2.3.3"
+                      }
+                      ]
+    }
+    return testData
 
 
 @app.route('/webInform', methods=['post'])
 def webInform():
-    inAddress = request.json.get("inAddress")
-    portList = portScanner.main(inAddress)
-    return webScanner.main(inAddress, portList)
+    # inAddress = request.json.get("inAddress")
+    # portList = portScanner.main(inAddress)
+    # return webScanner.main(inAddress, portList)
+    testData = {
+        "webInform": [
+            {
+                "port": "22",
+                "cdn": "cdnxxxx",
+                "cms": "cmsxxxx",
+                "framework": "frameworkxxxx",
+                "frontend": "frontendxxxx",
+                "lang": "langxxx",
+                "server": "serverxxxx",
+                "system": "systemxxxx",
+                "waf": "wafxxxx"
+            },
+            {
+                "port": "80",
+                "cdn": "cdnxxxx",
+                "cms": "cmsxxxx",
+                "framework": "frameworkxxxx",
+                "frontend": "frontendxxxx",
+                "lang": "langxxx",
+                "server": "serverxxxx",
+                "system": "systemxxxx",
+                "waf": "wafxxxx"
+            },
+            {
+                "port": "9999",
+                "cdn": "cdnxxxx",
+                "cms": "cmsxxxx",
+                "framework": "frameworkxxxx",
+                "frontend": "frontendxxxx",
+                "lang": "langxxx",
+                "server": "serverxxxx",
+                "system": "systemxxxx",
+                "waf": "wafxxxx"
+            },
+        ]}
+    return testData
+
 
 @app.route('/findVul', methods=['post'])
 def findVul():
     inKeywordList = request.json.get("keyword")
-    vulList=[]
+    vulList = []
     for keyword in inKeywordList:
         vulList.extend(vulFinder.main(keyword))
     return vulList
+
 
 if __name__ == '__main__':
     app.run(debug=True, host="0.0.0.0")
