@@ -28,19 +28,18 @@ def topoList():
     edgesArray = routeGetter.main(hostList)
 
     for edge in edgesArray:
-        if(edge["to"] not in hostList):
+        if (edge["to"] not in hostList):
             hostList.append(edge["to"])
             nodesArray.append({"id": edge["to"], "label": edge["to"]})
 
     return {"nodesArray": nodesArray, "edgesArray": edgesArray}
 
 
-
 @app.route('/basicInform', methods=['post'])
 def basicInform():
     global hostInfo
-    inAddress = request.json.get("inAddress")
-    basicList = hostInfo[inAddress]
+    ipAddress = request.json.get("ipAddress")
+    basicList = hostInfo[ipAddress]
 
     data = {"basicInform": {"hostname": basicList[0], "mac_address": basicList[1], "vendor": basicList[2],
                             "delay": basicList[3]}}
@@ -49,37 +48,34 @@ def basicInform():
 
 @app.route('/appInform', methods=['post'])
 def appInform():
-    inAddress = request.json.get("inAddress")
-    portList = portScanner.main(inAddress)
+    ipAddress = request.json.get("ipAddress")
+    portList = portScanner.main(ipAddress)
     appInformList = []
     for port in portList:
-        appInformItem = appScanner.main([inAddress, port])
+        appInformItem = appScanner.main([ipAddress, port])
         appInformItem["port"] = port
         appInformList.append(appInformItem)
     return appInformList
 
 
-
 @app.route('/webInform', methods=['post'])
 def webInform():
-    inAddress = request.json.get("inAddress")
+    ipAddress = request.json.get("ipAddress")
     portList = ['']
-    print(webScanner.main(inAddress, portList, 0))
-    return webScanner.main(inAddress, portList, 0)
-
+    print(webScanner.main(ipAddress, portList, 0))
+    return webScanner.main(ipAddress, portList, 0)
 
 
 @app.route('/findVul', methods=['post'])
 def findVul():
-    inKeywordList = request.json.get("keyword")
+    inKeywordList = request.json.get("keywords")
     vulList = []
     for keyword in inKeywordList:
         vulList.extend(vulFinder.main(keyword))
     return vulList
 
 
-
-#---------------------------------------------
+# ---------------------------------------------
 
 
 # @app.route('/topoList', methods=['post'])
