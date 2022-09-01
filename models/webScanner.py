@@ -9,7 +9,10 @@ def main(ip, ports, is_IP):
     web_list = []
     for port in ports:
         if is_IP:
-            target = "https://" + ip + ":" + str(port)
+            if port == 443:
+                target = "https://" + ip + ":" + str(port)
+            else:
+                target = "http://" + ip + ":" + str(port)
         else:
             target = ip
         dic = dict()
@@ -22,6 +25,7 @@ def main(ip, ports, is_IP):
             if item[1] is not None:
                 dic[item[0]] = item[1]
         web_list.append(dic)
+    print(web_list)
     return web_list
 
 

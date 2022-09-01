@@ -1,6 +1,7 @@
 import time
 import asyncio
-import threading
+import nmap
+#import threading
 
 port_list = []
 class PortScan(object):
@@ -49,16 +50,26 @@ class PortScan(object):
         port_list.sort()
         return port_list
 
+def nma(ip):
+    nm = nmap.PortScanner()
+    nm.scan(ip, arguments='-PS')
+    #nm.scan(ip, arguments='-PS -p1-65535')
+    portlist = nm[ip].all_tcp()
+    return portlist
+
+def ma1n(target):
+    #target为传入IP,rate为并发频率
+    rate = 1000
+    #传参出错修复
+    ps = PortScan(target,True,rate)
+    return ps.async_tcp_port_scan()
 
 def main(target):
     #target为传入IP,rate为并发频率
     rate = 1000
     #传参出错修复
-    ps = PortScan([target],True,rate)
-    return ps.async_tcp_port_scan()
-
-
+    return nma(target)
 if __name__ == '__main__':
-    target = "10.21.145.59"
+    target = "127.0.0.1"
     print(main(target))
     #lhl_2507 9.1 finish testing

@@ -3,7 +3,7 @@ import re
 import json
 import multiprocessing
 
-
+aaa = []
 def tracert(ip):
     print("tracert -w 5 -h 5 " + ip)
     result = os.popen("tracert -w 5 -h 5 " + ip).read()
@@ -34,8 +34,10 @@ def process(l):
     for i in r:
         d = {'from': i[0], 'to': i[1]}
         result.append(d)
+
     print(r)
     print(result)
+    return result
 
 
 def main(ips):
@@ -49,17 +51,21 @@ def main(ips):
     f = open("temp", "r+", encoding="utf-8")
     l = []
     for i in f.readlines():
-        l.append(json.loads(i))
+        if i == "\n":
+            pass
+        else:
+            print(i)
+            l.append(json.loads(i))
     print(l)
     f.close()
     os.remove("./temp")
     print("Tracert finished.")
     # l = [['0', '1', '2', '3'], ['0', '1', '5', '6'], ['0', '1', '5', '7'], ['0', '4', '1', '8'], ['0', '9'], ['0'],
     #      ['9']]
-    process(l)
+    l = process(l)
     return l
 
 
 if __name__ == '__main__':
-    ips = ["10.122.210.19"]
+    ips = ['10.20.0.6', '10.20.0.3', '10.20.0.14', '10.20.0.7', '10.20.0.26', '10.20.0.15', '10.20.0.9', '10.20.0.29', '10.20.0.31', '10.20.0.1', '10.20.0.25', '10.20.0.5', '10.20.0.22', '10.20.0.21', '10.20.0.2', '10.20.0.10', '10.20.0.30']
     main(ips)
