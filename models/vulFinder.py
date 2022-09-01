@@ -77,7 +77,8 @@ def main(Keywords):
         #返回的是json字符串，用loads恢复为list
     if num!=0 or similarSearch==False:
         return contents
-    
+    if num>10:
+        return contents
     print('开始近似搜索，耗时较多')
     softWare=re.findall(matchware,Keywords)
     version=re.findall(r'([0-9]+\.?[0-9]?\.?.*?[0-9])',Keywords)
@@ -140,6 +141,8 @@ def main(Keywords):
             version=version[0:3]
             page=1
             similarSearch=False
+        if num>10:
+            return contents
     # print(json.dumps(contents))
         #返回的是json字符串，用loads恢复为list
     print(contents)
@@ -147,5 +150,5 @@ def main(Keywords):
     # return json.dumps(contents)
 
 if __name__ == "__main__":
-    result=main(Keywords='msrpc mircosotf')
+    result=main(Keywords='jquery 1.4.2')
     # print(re.findall(r'3\.4\.1','html 34.1'))
