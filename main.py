@@ -17,8 +17,8 @@ def topo(ips):
 def main():
     # start_ip = input("Enter the start_ip: ")
     # end_ip = input("Enter the end_ip: ")
-    start_ip = "10.122.210.19"
-    end_ip = "10.122.210.19"
+    start_ip = "173.208.202.146"
+    end_ip = "173.208.202.146"
     info = hostScanner.main(start_ip, end_ip)
     info.keys()
     print(info)
@@ -36,18 +36,18 @@ def main():
         res = webScanner.main(ip, ip_list, 1)
         print(res)
 
-    d1 = {}
-    for ip, ports in d0.items():
-        l0 = [ports[0]]
-        for i in ports[1:]:
-            l1 = []
-            service = appScanner.main([ip, i])
-            for j in service:
-                vul = vulFinder.main(j)
-                l1.append({j: vul})
-            l0.append({str(i): l1})
-        d1[ip] = l0
-    print(d1)
+    # d1 = {}
+    # for ip, ports in d0.items():
+    #     l0 = [ports[0]]
+    #     for i in ports[1:]:
+    #         l1 = []
+    #         service = appScanner.main([ip, i])
+    #         for j in service:
+    #             vul = vulFinder.main(j)
+    #             l1.append({j: vul})
+    #         l0.append({str(i): l1})
+    #     d1[ip] = l0
+    # print(d1)
 
 
 if __name__ == '__main__':

@@ -36,11 +36,12 @@ def get_mac(ip_addr):
     if cmd:
         pattern = r"([a-f0-9]{2}-){5}[a-f0-9]{2}"
         mac = re.search(pattern, cmd)
+    if mac is not None:
         mac = mac.group()
-    if len(mac) != 0:
-        return mac
-    else:
-        return ""
+        if mac is not None:
+            return mac
+        else:
+            return ""
 
 
 def get_vendor(mac_addr):
@@ -69,7 +70,7 @@ class Scan(threading.Thread):
                 hostname = get_hostname(self.ip)
             except:
                 hostname = "unknown"
-            if len(mac) != 0:
+            if mac is not None:
                 vendor = get_vendor(mac)
             self.data[self.ip] = ([hostname, mac, vendor, delay])
             # self.data[self.ip].append([hostname, mac, vendor, delay])
