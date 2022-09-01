@@ -31,8 +31,8 @@ def topoList():
 
     print(edgesArray)
     for edge in edgesArray:
-        #print(edge)
-        #print(type(edge))
+        # print(edge)
+        # print(type(edge))
         if (edge["to"] not in hostList):
             hostList.append(edge["to"])
             nodesArray.append({"id": edge["to"], "label": edge["to"]})
@@ -58,17 +58,23 @@ def appInform():
     appInformList = []
     for port in portList:
         appInformItem = appScanner.main([ipAddress, port])
-        appInformItem["port"] = port
-        appInformList.append(appInformItem)
-    return appInformList
+        appInformItem2 = {}
+        appInformItem2["port"] = port
+        appInformItem2.update(appInformItem)
+        appInformList.append(appInformItem2)
+    print(appInformList)
+    return {"appInform": appInformList}
 
 
 @app.route('/webInform', methods=['post'])
 def webInform():
     ipAddress = request.json.get("ipAddress")
-    portList = ['']
-    print(webScanner.main(ipAddress, portList, 0))
-    return webScanner.main(ipAddress, portList, 0)
+    portList = portScanner.main(ipAddress)
+
+    result = webScanner.main(ipAddress, portList, 1)
+    print("rrrrrrrrrrrrrrrwebsult")
+    print(result)
+    return {"webInform": result}
 
 
 @app.route('/findVul', methods=['post'])
@@ -76,8 +82,14 @@ def findVul():
     inKeywordList = request.json.get("keywords")
     vulList = []
     for keyword in inKeywordList:
-        vulList.extend(vulFinder.main(keyword))
-    return vulList
+        vulItem = vulFinder.main(keyword)
+        # print(vulItem)
+        for vulItemItem in vulItem:
+            vulItem2 = {'cve_id': vulItemItem[0], 'info': vulItemItem[1], 'date': vulItemItem[2]}
+            vulList.append(vulItem2)
+    print("vulllllllllllllllll")
+    print(vulList)
+    return {'vuls': vulList}
 
 
 # ---------------------------------------------
@@ -123,67 +135,75 @@ def findVul():
 # @app.route('/appInform', methods=['post'])
 # def appInform():
 #
-#     testData = {
-#         "appInform": [{"port": 252,
-#                        "service": "ssjjjjjjjjjjjjjjjjjh",
-#                        "version": "openssh 2.3.3"
-#                        }, {
-#                           "port": 2223,
-#                           "service": "sssssssssssssh",
-#                           "version": "openssh 2.3.3"
-#                       }, {
-#                           "port": 24,
-#                           "service": "ssssssssssssssssh",
-#                           "version": "openssh 2.3.3"
-#                       }, {
-#                           "port": 25,
-#                           "service": "ssh",
-#                           "version": "openssh 2.3.3"
-#                       }
-#                       ]
-#     }
+#     # testData = {
+#     #     "appInform": [{"port": 252,
+#     #                    "service": "ssjjjjjjjjjjjjjjjjjh",
+#     #                    "version": "openssh 2.3.3"
+#     #                    }, {
+#     #                       "port": 2223,
+#     #                       "service": "sssssssssssssh",
+#     #                       "version": "openssh 2.3.3"
+#     #                   }, {
+#     #                       "port": 24,
+#     #                       "service": "ssssssssssssssssh",
+#     #                       "version": "openssh 2.3.3"
+#     #                   }, {
+#     #                       "port": 25,
+#     #                       "service": "ssh",
+#     #                       "version": "openssh 2.3.3"
+#     #                   }
+#     #                   ]
+#     # }
+#     testData = [{'port': 7, 'service': 'echo', 'version': ''}, {'port': 9, 'service': 'discard', 'version': ''},
+#      {'port': 13, 'service': 'daytime', 'version': ''}, {'port': 17, 'service': 'qotd', 'version': ''},
+#      {'port': 19, 'service': 'chargen', 'version': ''}, {'port': 80, 'service': 'http', 'version': '1.1'},
+#      {'port': 135, 'service': 'msrpc', 'version': 'Microsoft Windows RPC'},
+#      {'port': 139, 'service': 'netbios-ssn', 'version': 'Microsoft Windows netbios-ssn'},
+#      {'port': 443, 'service': 'http', 'version': '1.1'}, {'port': 445, 'service': 'microsoft-ds', 'version': ''},
+#      {'port': 903, 'service': 'ssl/vmware-auth', 'version': '1.10'}, {'port': 5000, 'service': 'upnp', 'version': ''}]
+#
 #     return testData
 #
 #
 # @app.route('/webInform', methods=['post'])
 # def webInform():
-#
-#     testData = {
-#         "webInform": [
-#             {
-#                 "port": "225555555555555",
-#                 "cdn": "cdnx232xxx",
-#                 "cms": "cmsxxxx",
-#                 "framework": "frame23workxxxx",
-#                 "frontend": "fronte23ndxxxx",
-#                 "lang": "langxxx",
-#                 "server": "serverxxxx",
-#                 "system": "systemxxxx",
-#                 "waf": "wafxxxx"
-#             },
-#             {
-#                 "port": "80",
-#                 "cdn": "cdnxxxx",
-#                 "cms": "cmsxxxx",
-#                 "framework": "f33rameworkxxxx",
-#                 "frontend": "fro33ntendxxxx",
-#                 "lang": "langxxx",
-#                 "server": "serverxxxx",
-#                 "system": "systemxxxx",
-#                 "waf": "wafxxxx"
-#             },
-#             {
-#                 "port": "9999",
-#                 "cdn": "cdnxxxx",
-#                 "cms": "cmsxx32xx",
-#                 "framework": "frameworkxxxx",
-#                 "frontend": "frontendxxxx",
-#                 "lang": "langxxx",
-#                 "server": "serverxxxx",
-#                 "system": "systemxxxx",
-#                 "waf": "wafxxxx"
-#             },
-#         ]}
+#     testData ={"webInform":[{'port': 7, 'service': 'echo', 'version': ''}, {'port': 9, 'service': 'discard', 'version': ''}, {'port': 13, 'service': 'daytime', 'version': ''}, {'port': 17, 'service': 'qotd', 'version': ''}, {'port': 19, 'service': 'chargen', 'version': ''}, {'port': 80, 'service': 'http', 'version': '1.1'}, {'port': 135, 'service': 'msrpc', 'version': 'Microsoft Windows RPC'}, {'port': 139, 'service': 'netbios-ssn', 'version': 'Microsoft Windows netbios-ssn'}, {'port': 443, 'service': 'http', 'version': '1.1'}, {'port': 445, 'service': 'microsoft-ds', 'version': ''}, {'port': 903, 'service': 'ssl/vmware-auth', 'version': '1.10'}, {'port': 5000, 'service': 'upnp', 'version': ''}]}
+#     # testData = {
+#     #     "webInform": [
+#     #         {
+#     #             "port": "225555555555555",
+#     #             "cdn": "cdnx232xxx",
+#     #             "cms": "cmsxxxx",
+#     #             "framework": "frame23workxxxx",
+#     #             "frontend": "fronte23ndxxxx",
+#     #             "lang": "langxxx",
+#     #             "server": "serverxxxx",
+#     #             "system": "systemxxxx",
+#     #             "waf": "wafxxxx"
+#     #         },
+#     #         {
+#     #             "port": "80",
+#     #             "cdn": "cdnxxxx",
+#     #             "cms": "cmsxxxx",
+#     #             "framework": "f33rameworkxxxx",
+#     #             "frontend": "fro33ntendxxxx",
+#     #             "lang": "langxxx",
+#     #             "server": "serverxxxx",
+#     #             "system": "systemxxxx",
+#     #             "waf": "wafxxxx"
+#     #         },
+#     #         {
+#     #             "port": "9999",
+#     #             "cdn": "cdnxxxx",
+#     #             "cms": "cmsxx32xx",
+#     #             "framework": "frameworkxxxx",
+#     #             "frontend": "frontendxxxx",
+#     #             "lang": "langxxx",
+#     #             "server": "serverxxxx",
+#     #             "system": "systemxxxx",
+#     #             "waf": "wafxxxx"
+#     #         },
+#     #     ]}
 #     return testData
 #
 #

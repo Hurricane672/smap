@@ -8,7 +8,7 @@ class Jquery(FingerprintPlugin):
         res2 = re.findall(r'jquery/([0-9\-.]+)/', content, re.I)
         res3 = re.findall(r'jquery-([0-9\-.]+).min.js', content, re.I)
         res4 = re.findall(r'jquery@([0-9.]+)/', content, re.I)
-        if res is not None:
+        if res is not None and len(res) != 0:
             for item in res:
                 if item != "":
                     return "jquery " + item

@@ -1,3 +1,8 @@
-02-Sep-22 01:10:20 - werkzeug - WARNING -  * Debugger is active!
-02-Sep-22 01:10:20 - werkzeug - INFO -  * Debugger PIN: 126-973-249
-02-Sep-22 01:19:51 - werkzeug - INFO -  * Detected change in 'D:\\smap\\models\\webScan\\Scanner.py', reloading
+02-Sep-22 01:54:49 - werkzeug - INFO - 127.0.0.1 - - [02/Sep/2022 01:54:49] "POST /webInform HTTP/1.1" 200 -
+02-Sep-22 01:54:58 - werkzeug - INFO - 127.0.0.1 - - [02/Sep/2022 01:54:58] "POST /appInform HTTP/1.1" 200 -
+02-Sep-22 01:56:46 - werkzeug - INFO - 10.122.217.238 - - [02/Sep/2022 01:56:46] "OPTIONS /appInform HTTP/1.1" 200 -
+02-Sep-22 01:56:46 - werkzeug - INFO - 10.122.217.238 - - [02/Sep/2022 01:56:46] "OPTIONS /basicInform HTTP/1.1" 200 -
+02-Sep-22 01:56:46 - werkzeug - INFO - 10.122.217.238 - - [02/Sep/2022 01:56:46] "OPTIONS /webInform HTTP/1.1" 200 -
+02-Sep-22 01:56:46 - werkzeug - INFO - 10.122.217.238 - - [02/Sep/2022 01:56:46] "[35m[1mPOST /basicInform HTTP/1.1[0m" 500 -
+02-Sep-22 01:56:48 - werkzeug - INFO - 10.122.217.238 - - [02/Sep/2022 01:56:48] "[35m[1mPOST /appInform HTTP/1.1[0m" 500 -
+02-Sep-22 01:56:48 - werkzeug - INFO - 10.122.217.238 - - [02/Sep/2022 01:56:48] "[35m[1mPOST /webInform HTTP/1.1[0m" 500 -
