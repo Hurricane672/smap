@@ -20,10 +20,11 @@ class Output:
         # )
 
     def error(self, value):
-        print(
-            "{}[-]{} {}{}{}".format(self.r, self.e, self.w, value, self.e),
-            flush=True,
-        )
+        pass
+        # print(
+        #     "{}[-]{} {}{}{}".format(self.r, self.e, self.w, value, self.e),
+        #     flush=True,
+        # )
 
     def info(self, value):
         print(

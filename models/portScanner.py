@@ -32,7 +32,7 @@ class PortScan(object):
             pass
 
     def async_tcp_port_scan(self):
-        ports = [port for port in range(0,65535)]
+        ports = [port for port in range(0,1000)]
         ip_port_list = [(ip,int(port)) for ip in self.ip_list for port in ports]
         sem = asyncio.Semaphore(self.rate) # 限制并发量
         loop = asyncio.get_event_loop()
