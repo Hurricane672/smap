@@ -12,38 +12,39 @@ hostList = []
 
 @app.route('/topoList', methods=['post'])
 def topoList():
-    global hostInfo
-    global hostList
-    fromIp = request.json.get("fromIp")
-    toIp = request.json.get("toIp")
-
-    hostInfo = hostScanner.main(fromIp, toIp)
-    hostList = list(hostInfo.keys())
-
-    # testData = {
-    #         "nodesArray": [
-    #             {"id": "192.168.1.1", "label": "192.168.1.1"},
-    #             {"id": "192.168.1.2", "label": "192.168.1.2"},
-    #             {"id": "192.168.1.3", "label": "192.168.1.3"},
-    #             {"id": "192.168.1.4", "label": "192.168.1.4"}
-    #         ],
-    #         "edgesArray": [
-    #             {"from": "192.168.1.1", "to": "192.168.1.1"},
-    #             {"from": "192.168.1.2", "to": "192.168.1.1"},
-    #             {"from": "192.168.1.3", "to": "192.168.1.1"},
-    #             {"from": "192.168.1.4", "to": "192.168.1.1"},
-    #             {"from": "192.168.1.3", "to": "192.168.1.3"},
-    #             {"from": "192.168.1.3", "to": "192.168.1.2"}
+    # global hostInfo
+    # global hostList
+    # fromIp = request.json.get("fromIp")
+    # toIp = request.json.get("toIp")
     #
-    #         ]
-    #     }
-    nodesArray = []
-    for ipA in hostList:
-        ipObj = {"id": ipA, "label": ipA}
-        nodesArray.append(ipObj)
-    edgesArray = routeGetter.main(hostList)
+    # hostInfo = hostScanner.main(fromIp, toIp)
+    # hostList = list(hostInfo.keys())
 
-    return {"nodesArray": nodesArray, "edgesArray": edgesArray}
+    # nodesArray = []
+    # for ipA in hostList:
+    #     ipObj = {"id": ipA, "label": ipA}
+    #     nodesArray.append(ipObj)
+    # edgesArray = routeGetter.main(hostList)
+
+    #return {"nodesArray": nodesArray, "edgesArray": edgesArray}
+    testData = {
+            "nodesArray": [
+                {"id": "192.168.1.1", "label": "192.168.1.1"},
+                {"id": "192.168.1.2", "label": "192.168.1.2"},
+                {"id": "192.168.1.3", "label": "192.168.1.3"},
+                {"id": "192.168.1.4", "label": "192.168.1.4"}
+            ],
+            "edgesArray": [
+                {"from": "192.168.1.1", "to": "192.168.1.1"},
+                {"from": "192.168.1.2", "to": "192.168.1.1"},
+                {"from": "192.168.1.3", "to": "192.168.1.1"},
+                {"from": "192.168.1.4", "to": "192.168.1.1"},
+                {"from": "192.168.1.3", "to": "192.168.1.3"},
+                {"from": "192.168.1.3", "to": "192.168.1.2"}
+
+            ]
+        }
+    return testData
 
 
 @app.route('/basicInform', methods=['post'])
@@ -54,13 +55,13 @@ def basicInform():
     #
     # data = {"basicInform": {"hostname": basicList[0], "mac_address": basicList[1], "vendor": basicList[2],
     #                         "delay": basicList[3]}}
-
+    #return data
     testData = {
         "basicInform": {
-            "hostname": "xx231xx",
-            "mac_address": "133xxx",
-            "vendor": "x32332xxx",
-            "delay": "xx23xx"
+            "hostname": "xx2323231xx",
+            "mac_address": "132323xxx",
+            "vendor": "x3223332xxx",
+            "delay": "xx2322323xx"
         }
     }
     return testData
@@ -75,18 +76,18 @@ def appInform():
     #     appInformItem = appScanner.main([inAddress, port])
     #     appInformItem["port"] = port
     #     appInformList.append(appInformItem)
-
+    #return appInformList
     testData = {
-        "appInform": [{"port": 22,
-                       "service": "ssh",
+        "appInform": [{"port": 2555552,
+                       "service": "ssjjjjjjjjjjjjjjjjjh",
                        "version": "openssh 2.3.3"
                        }, {
-                          "port": 23,
-                          "service": "ssh",
+                          "port": 2223,
+                          "service": "sssssssssssssh",
                           "version": "openssh 2.3.3"
                       }, {
                           "port": 24,
-                          "service": "ssh",
+                          "service": "ssssssssssssssssh",
                           "version": "openssh 2.3.3"
                       }, {
                           "port": 25,
@@ -106,11 +107,11 @@ def webInform():
     testData = {
         "webInform": [
             {
-                "port": "22",
-                "cdn": "cdnxxxx",
+                "port": "225555555555555",
+                "cdn": "cdnx232xxx",
                 "cms": "cmsxxxx",
-                "framework": "frameworkxxxx",
-                "frontend": "frontendxxxx",
+                "framework": "frame23workxxxx",
+                "frontend": "fronte23ndxxxx",
                 "lang": "langxxx",
                 "server": "serverxxxx",
                 "system": "systemxxxx",
@@ -120,8 +121,8 @@ def webInform():
                 "port": "80",
                 "cdn": "cdnxxxx",
                 "cms": "cmsxxxx",
-                "framework": "frameworkxxxx",
-                "frontend": "frontendxxxx",
+                "framework": "f33rameworkxxxx",
+                "frontend": "fro33ntendxxxx",
                 "lang": "langxxx",
                 "server": "serverxxxx",
                 "system": "systemxxxx",
@@ -130,7 +131,7 @@ def webInform():
             {
                 "port": "9999",
                 "cdn": "cdnxxxx",
-                "cms": "cmsxxxx",
+                "cms": "cmsxx32xx",
                 "framework": "frameworkxxxx",
                 "frontend": "frontendxxxx",
                 "lang": "langxxx",

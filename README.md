@@ -254,10 +254,10 @@ In:
 out:
     {
     	basicInform:{
-           "hostname":"xxxx",
-           "mac_address":""xxxx,
-           "vendor":"xxxx",
-           "delay":"xxxx"
+           "hostname":"xx231xx",
+           "mac_address":""133xxx,
+           "vendor":"x32332xxx",
+           "delay":"xx23xx"
         }
     }
 
@@ -298,7 +298,6 @@ out:
 ```
 
 #### 3、web应用信息 webInform
-
 
 In:
 	{
@@ -342,6 +341,7 @@ Out:
             },
         ]
 		
+
 	}
 
 

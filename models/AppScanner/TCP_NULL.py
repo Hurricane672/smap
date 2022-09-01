@@ -29,7 +29,10 @@ def TCP_Scan(target,result):
             result["service"] = i["name"]
             p = re.compile(r'\d+\.(?:\d+\.)*\d+')
             Identify = p.search(Identify.group())
-            result["version"] = Identify.group()
+            if (Identify != None):
+                result["version"] = Identify.group()
+            else:
+                result["version"] = ''
             # print("识别结果为：" + service + " " + Identify.string)
             tcp_client_socket.close()  # 关闭连接
             return result

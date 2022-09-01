@@ -40,5 +40,5 @@ def main(target):
 
 if __name__ == '__main__':
     # target = ['10.21.145.59',80]
-    target = ['10.122.214.150',139]
+    target = ['127.0.0.1',80]
     main(target)

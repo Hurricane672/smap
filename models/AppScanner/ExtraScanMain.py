@@ -56,6 +56,7 @@ def ExtraScan(target,result):
                 pattern = match["pattern"]
                 # print("正则匹配式：" + pattern)
                 p = re.compile(pattern)
+                # 匹配identify结果
                 Identify = p.search(feedback)
 
                 if Identify != None:
@@ -63,10 +64,14 @@ def ExtraScan(target,result):
                     result["service"] = match["name"]
                     # print(result["service"])
 
+                    #正则表达式编译
                     p = re.compile(r'\d+\.(?:\d+\.)*\d+')
+                    #匹配版本号
                     Identify = p.search(Identify.group())
-
-                    result["version"] = Identify.group()
+                    if(Identify!=None):
+                        result["version"] = Identify.group()
+                    else:
+                        result["version"] = ''
                     # print(result["version"])
 
                     # print("识别结果为："+str(result))
