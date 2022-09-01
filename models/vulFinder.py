@@ -3,7 +3,6 @@ from urllib.parse import quote
 import re
 import requests
 from random import randint
-import json
  
  
 # 获取网页内容
@@ -33,7 +32,70 @@ def show_cve_content(res):
  
 # 主函数
 def main(Keywords):
-    Keywords=quote(Keywords)
+    num=0
+    simlarSearch=True
+    briefSearch=True
+    matchware=r'([A-Z,a-z]+) *'
+ 
+    Keyword=quote(Keywords)
+    pagemax=1
+    page=1
+    contents=[]
+    while page<=pagemax:
+        url = 'https://avd.aliyun.com/search?q=' + str(Keyword)+'&page='+str(page)
+        response = get_html_content(url)
+        
+        # print(html)
+        if pagemax==1:
+            match=re.compile(r'第.*?/ (.*?) 页')
+            pagemax=int(re.findall(match,response)[0])
+
+        
+        for content in show_cve_content(response):
+            # print(content)
+            content = list(content)
+            for i in range(0, len(content)):
+                content[i] = content[i].strip()  # 去除字符串中的空格
+            filt=re.compile(r'C+\w*-\d+-\d+',re.S)
+            # print(content[4].startswith('C'))
+            flag=len(re.findall(filt,content[1]))
+            if flag==0 and content[4]=='"无CVE"':
+                continue
+            if briefSearch==True:
+                if content[3]!='' and int(content[3][:4])<2019:
+                    break
+            if '.x' in content[1]:
+                for i in range(0,10):
+                    tmp=content[1].replace('.x','.%d' %i)
+                    if len(re.findall(version,tmp))!=0:
+                        Vulnerability=' '.join((content[4],content[1],content[3]))
+                    
+                        print(Vulnerability)
+                        num+=1
+                        contents.append(Vulnerability)
+                        continue
+                continue
+            if len(re.findall(version,content[1]))!=0:
+                Vulnerability=' '.join((content[4],content[1],content[3]))
+            
+                print(Vulnerability)
+                num+=1
+                contents.append(Vulnerability)
+        page+=1
+    # print(json.dumps(contents))
+        #返回的是json字符串，用loads恢复为list
+    if num!=0 or simlarSearch==False:
+        return contents
+    
+    print('开始近似搜索，耗时较多')
+    softWare=re.findall(matchware,Keywords)
+    version=re.search(r'([0-9]+\.?[0-9]?\.?.*?[0-9])',Keywords).group()
+    print((softWare[0],version))
+
+    version=version.replace('.','\.')
+
+    # Keywords=quote(Keywords)
+    Keywords=quote(softWare[0])
     pagemax=1
     page=1
     contents=[]
@@ -55,17 +117,38 @@ def main(Keywords):
             filt=re.compile(r'C+\w*-\d+-\d+',re.S)
             # print(content[4].startswith('C'))
             flag=len(re.findall(filt,content[1]))
-            if flag==0 and content[4]=='"无CVE"':
+            if flag==0 and content[4]=='"无CVE"' or content[3]=='':
                 continue
+            if briefSearch==True:
+                if content[3]!='' and int(content[3][:4])<2019:
+                    break
+            if '.x' in content[1]:
+                for i in range(0,10):
+                    tmp=content[1].replace('.x','.%d' %i)
+                    if len(re.findall(version,tmp))!=0:
+                        Vulnerability=' '.join((content[4],content[1],content[3]))
+                    
+                        print(Vulnerability)
+                        num+=1
+                        contents.append(Vulnerability)
+                        continue
+                continue
+            match=re.compile(r'1.4',re.S)
+            if len(re.findall(match,content[1]))!=0:
+                Vulnerability=' '.join((content[4],content[1],content[3]))
             
-            Vulnerability=' '.join((content[4],content[1],content[3]))
-            print(Vulnerability)
-            contents.append(Vulnerability)
+                print(Vulnerability)
+                num+=1
+                contents.append(Vulnerability)
         page+=1
+        if num==0 and page==pagemax and simlarSearch==True:
+            version=version[0:3]
+            page=1
+            simlarSearch=False
     # print(json.dumps(contents))
         #返回的是json字符串，用loads恢复为list
     return contents
  
 if __name__ == "__main__":
-    result=main(Keywords='jquery 1.4.2')
-    # print(json.loads(result))
+    result=main(Keywords='jQuery 1.4.1')
+    # print(re.findall(r'3\.4\.1','html 34.1'))
