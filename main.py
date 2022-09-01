@@ -8,8 +8,6 @@ from models import webScanner
 import multiprocessing
 
 
-
-
 def topo(ips):
     topoDrawer.main(ips)
 
@@ -17,14 +15,18 @@ def topo(ips):
 def main():
     # start_ip = input("Enter the start_ip: ")
     # end_ip = input("Enter the end_ip: ")
-    start_ip = "173.208.202.146"
-    end_ip = "173.208.202.146"
+    start_ip = "10.122.210.19"
+    end_ip = "10.122.210.19"
     info = hostScanner.main(start_ip, end_ip)
-    info.keys()
     print(info)
-    # p = multiprocessing.Process(targets=topo,args=(ips,))
-    # p.daemon = True
-    # p.start()
+
+
+    # ip_list = []
+    # for item in info.keys():
+    #     ip_list.append(item)
+    # res = routeGetter.main(['10.20.0.5', '10.20.0.6', '10.20.0.7', '10.20.0.8'])
+    # print(res)
+
     d0 = {}
     for ip, sys in info.items():
         ports = portScanner.main(ip)

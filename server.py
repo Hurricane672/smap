@@ -63,8 +63,9 @@ def appInform():
 @app.route('/webInform', methods=['post'])
 def webInform():
     inAddress = request.json.get("inAddress")
-    portList = portScanner.main(inAddress)
-    return webScanner.main(inAddress, portList)
+    portList = ['']
+    print(webScanner.main(inAddress, portList, 0))
+    return webScanner.main(inAddress, portList, 0)
 
 
 

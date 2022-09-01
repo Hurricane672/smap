@@ -9,7 +9,10 @@ def main(ip, ports, is_IP):
     web_list = []
     for port in ports:
         if is_IP:
-            target = "https://" + ip + ":" + str(port)
+            if port == 443:
+                target = "https://" + ip + ":" + str(port)
+            else:
+                target = "http://" + ip + ":" + str(port)
         else:
             target = ip
         dic = dict()
