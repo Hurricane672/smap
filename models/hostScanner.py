@@ -30,14 +30,15 @@ def get_hostname(ip_addr):
 
 
 def get_mac(ip_addr):
-    cmd = subprocess.check_output("nbtstat -A {}".format(ip_addr))
+    cmd = subprocess.check_output("arp -a {}".format(ip_addr))
     cmd = cmd.decode("gbk")
     mac = []
     if cmd:
-        pattern = "MAC 地址 = (.*)\r"
-        mac = re.findall(pattern, cmd)
+        pattern = r"([a-f0-9]{2}-){5}[a-f0-9]{2}"
+        mac = re.search(pattern, cmd)
+        mac = mac.group()
     if len(mac) != 0:
-        return mac[0]
+        return mac
     else:
         return ""
 
@@ -46,8 +47,10 @@ def get_vendor(mac_addr):
     res = requests.get(url=r'https://mac.bmcx.com/' + mac_addr + '__mac/')
     pattern = r"<td bgcolor=\"#FFFFFF\" style=\"font-size:16px;\">(.*)</td>"
     vendor = re.findall(pattern, res.text)
-    return vendor[0]
-
+    if len(vendor) != 0:
+        return vendor[0]
+    else:
+        return ""
 
 class Scan(threading.Thread):
     def __init__(self, ip_addr, host_info: list):
@@ -61,6 +64,7 @@ class Scan(threading.Thread):
             # print("发现在线主机" + self.ip)
             delay = str(int(delay * 1000)) + "ms"
             mac = get_mac(self.ip)
+            print(mac)
             vendor = ""
             try:
                 hostname = get_hostname(self.ip)

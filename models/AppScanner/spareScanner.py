@@ -26,20 +26,19 @@ def spareScan(target,result):
 
     result["service"]=info["name"]
 
-    if info["product"] !='':
-        result["version"]=info["product"]
-        return result
-    
     if info["version"] !='':
         result["version"]=info["version"]
         return result
-    
+    if info["product"] !='':
+        result["version"]=info["product"]
+        return result
     if info["cpe"] !='':
         result["version"]=info["cpe"]
         return result
+
     return result
 
 if __name__ == '__main__':
-    target=['127.0.0.1',3306]
+    target=['10.122.214.150',25]
     result = {"service": "", "version": ""}
-    print(spareScan(target,result))
+    # print(spareScan(target,result))
