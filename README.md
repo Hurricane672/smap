@@ -131,9 +131,9 @@
 **In:**
 
 ```
-内容描述：ip加端口列表（两个参数）
-举例说明："192.168.1.1",[22，34，56，80，1000，1390，3306，65000]
-数据类型：str,list(int)
+内容描述：ip, 端口列表, 是否为ip地址（如果是ip地址则为1，如果是域名则为0）(ip, [port1, port2, ...], is_IP)
+举例说明："192.168.1.1",[22，34，56，80，1000，1390，3306，65000], 1
+数据类型：(str,list(int),int)
 ```
 
 **Out:**
@@ -144,17 +144,7 @@
 注意：只返回扫描到的web服务
 [
 	{
-    	"port":"22",
-        "cdn":"cdnxxxx",
-        "cms":"cmsxxxx",
-        "framework":"frameworkxxxx",
-        "frontend":"frontendxxxx", 
-        "lang":"langxxx",
-        "server":"serverxxxx",
-        "system":"systemxxxx",
-        "waf":"wafxxxx"
-    },
-    {
+	    "ip":"192.168.1.1"
     	"port":"80",
         "cdn":"cdnxxxx",
         "cms":"cmsxxxx",
@@ -166,6 +156,19 @@
         "waf":"wafxxxx"
     },
     {
+        "ip":"192.168.1.1"
+    	"port":"443",
+        "cdn":"cdnxxxx",
+        "cms":"cmsxxxx",
+        "framework":"frameworkxxxx",
+        "frontend":"frontendxxxx", 
+        "lang":"langxxx",
+        "server":"serverxxxx",
+        "system":"systemxxxx",
+        "waf":"wafxxxx"
+    },
+    {
+        "ip":"192.168.1.1"
     	"port":"9999",
         "cdn":"cdnxxxx",
         "cms":"cmsxxxx",
@@ -254,10 +257,10 @@ In:
 out:
     {
     	basicInform:{
-           "hostname":"xxxx",
-           "mac_address":""xxxx,
-           "vendor":"xxxx",
-           "delay":"xxxx"
+           "hostname":"xx231xx",
+           "mac_address":""133xxx,
+           "vendor":"x32332xxx",
+           "delay":"xx23xx"
         }
     }
 
@@ -298,7 +301,6 @@ out:
 ```
 
 #### 3、web应用信息 webInform
-
 
 In:
 	{
@@ -342,6 +344,7 @@ Out:
             },
         ]
 		
+
 	}
 
 

@@ -6,6 +6,9 @@ from random import randint
  
  
 # 获取网页内容
+from flask import jsonify
+
+
 def get_html_content(url):
     user_agent = ['Mozilla/5.0 (Windows NT 10.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.7113.93 Safari/537.36',
                   'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101 Firefox/91.0',
@@ -147,8 +150,10 @@ def main(Keywords):
             simlarSearch=False
     # print(json.dumps(contents))
         #返回的是json字符串，用loads恢复为list
+    print(contents)
     return contents
- 
+    # return json.dumps(contents)
+
 if __name__ == "__main__":
     result=main(Keywords='jQuery 1.4.1')
     # print(re.findall(r'3\.4\.1','html 34.1'))

@@ -7,7 +7,7 @@ import re
 def TCP_Scan(target,result):
 
     # with open('models/appSanner/nmap.json', encoding='utf-8') as jsonfile:
-    with open('./AppScanner/nmap.json', encoding='utf-8') as jsonfile:
+    with open('./models/AppScanner/nmap.json', encoding='utf-8') as jsonfile:
         probeJson = json.load(jsonfile)
 
     ip_port = (target[0], target[1])
@@ -29,7 +29,10 @@ def TCP_Scan(target,result):
             result["service"] = i["name"]
             p = re.compile(r'\d+\.(?:\d+\.)*\d+')
             Identify = p.search(Identify.group())
-            result["version"] = Identify.group()
+            if (Identify != None):
+                result["version"] = Identify.group()
+            else:
+                result["version"] = ''
             # print("识别结果为：" + service + " " + Identify.string)
             tcp_client_socket.close()  # 关闭连接
             return result
