@@ -1,5 +1,5 @@
 from flask import Flask, redirect, request, url_for, render_template, jsonify
-from models import hostScanner, portScanner, routeGetter, appScanner, topoDrawer, vulFinder
+from models import hostScanner, portScanner, routeGetter, appScanner, topoDrawer, vulFinder, webScanner
 import os
 from flask_cors import CORS
 
@@ -55,11 +55,31 @@ def basicInform():
     return {"hostname": basicList[0], "mac_address": basicList[1], "vendor": basicList[2], "delay": basicList[3]}
 
 
-@app.route('appInform', methods=['post'])
+@app.route('/appInform', methods=['post'])
 def appInform():
-    return 0
+    inAddress = request.json.get("inAddress")
+    portList = portScanner.main(inAddress)
+    appInformList = []
+    for port in portList:
+        appInformItem = appScanner.main([inAddress, port])
+        appInformItem["port"] = port
+        appInformList.append(appInformItem)
+    return appInformList
 
+
+@app.route('/webInform', methods=['post'])
+def webInform():
+    inAddress = request.json.get("inAddress")
+    portList = portScanner.main(inAddress)
+    return webScanner.main(inAddress, portList)
+
+@app.route('/findVul', methods=['post'])
+def findVul():
+    inKeywordList = request.json.get("keyword")
+    vulList=[]
+    for keyword in inKeywordList:
+        vulList.extend(vulFinder.main(keyword))
+    return vulList
 
 if __name__ == '__main__':
     app.run(debug=True, host="0.0.0.0")
-    print()
