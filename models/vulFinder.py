@@ -7,6 +7,9 @@ import json
  
  
 # 获取网页内容
+from flask import jsonify
+
+
 def get_html_content(url):
     user_agent = ['Mozilla/5.0 (Windows NT 10.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.7113.93 Safari/537.36',
                   'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101 Firefox/91.0',
@@ -59,13 +62,16 @@ def main(Keywords):
                 continue
             
             Vulnerability=' '.join((content[4],content[1],content[3]))
-            print(Vulnerability)
+            # print(Vulnerability)
             contents.append(Vulnerability)
         page+=1
     # print(json.dumps(contents))
         #返回的是json字符串，用loads恢复为list
+    print(contents)
     return contents
- 
+    # return json.dumps(contents)
+
 if __name__ == "__main__":
-    result=main(Keywords='mysql 5.2.7')
-    print((result))
+    result=main(Keywords='vsftpd')
+
+    print(type(result))

@@ -6,7 +6,7 @@ def spareScan(target,result):
     
     nm = nmap.PortScanner()
     try:
-        nm.scan(ip,str(port),timeout=8)
+        nm.scan(ip,str(port),timeout=7)
     except:
         print('Timeout! Start EasyScan')
         nm.scan(ip,str(port),arguments='')
@@ -39,6 +39,6 @@ def spareScan(target,result):
     return result
 
 if __name__ == '__main__':
-    target=['10.122.214.150',25]
+    target=['127.0.0.1',25]
     result = {"service": "", "version": ""}
-    # print(spareScan(target,result))
+    print(spareScan(target,result))
