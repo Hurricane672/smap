@@ -5,10 +5,13 @@ sys.path.append('models/webScan')
 from models.webScan import Scanner
 
 
-def main(ip, ports):
+def main(ip, ports, is_IP):
     web_list = []
     for port in ports:
-        target = "https://" + ip + ":" + str(port)
+        if is_IP:
+            target = "https://" + ip + ":" + str(port)
+        else:
+            target = ip
         dic = dict()
         dic['ip'] = ip
         dic['port'] = port
@@ -23,5 +26,5 @@ def main(ip, ports):
 
 
 if __name__ == 'main':
-    res = main("10.122.210.19", [25, 110, 135, 139, 443, 445, 902, 912])
+    res = main("10.122.210.19", [25, 110, 135, 139, 443, 445, 902, 912], 1)
     print(res)

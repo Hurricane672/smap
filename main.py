@@ -33,7 +33,7 @@ def main():
 
     for ip, info in d0.items():
         ip_list = info[1]
-        res = webScanner.main(ip, ip_list)
+        res = webScanner.main(ip, ip_list, 1)
         print(res)
 
     d1 = {}
