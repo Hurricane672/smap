@@ -1,5 +1,3 @@
-from ctypes.wintypes import tagRECT
-from tkinter.tix import MAIN
 import nmap
 
 def spareScan(target,result):
