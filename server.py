@@ -72,7 +72,10 @@ def basicInform():
 @app.route('/appInform', methods=['post'])
 def appInform():
 	inAddress = request.json.get("inAddress")
-	portList = portScanner.main(inAddress)
+	# print(type(inAddress))
+	# inAddress2="10.21.145.59"
+	portList = portScanner.main([inAddress])
+	print(portList)
 	appInformList = []
 	for port in portList:
 		appInformItem = appScanner.main([inAddress, port])
