@@ -12,7 +12,7 @@ def main(ip, ports):
         dic = dict()
         dic['ip'] = ip
         dic['port'] = port
-        res = Scanner.Sitadel(target).main()
+        res = Scanner.Scan(target).main()
         for item in res:
             if item[1] is not None:
                 dic[item[0]] = item[1]
