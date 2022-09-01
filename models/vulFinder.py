@@ -36,7 +36,7 @@ def show_cve_content(res):
 # 主函数
 def main(Keywords):
     num=0
-    simlarSearch=True
+    similarSearch=True
     briefSearch=True
     matchware=r'([A-Z,a-z]+) *'
  
@@ -75,7 +75,7 @@ def main(Keywords):
         page+=1
     # print(json.dumps(contents))
         #返回的是json字符串，用loads恢复为list
-    if num!=0 or simlarSearch==False:
+    if num!=0 or similarSearch==False:
         return contents
     
     print('开始近似搜索，耗时较多')
@@ -132,10 +132,10 @@ def main(Keywords):
                 num+=1
                 contents.append(Vulnerability)
         page+=1
-        if num==0 and page==pagemax and simlarSearch==True:
+        if num==0 and page==pagemax and similarSearch==True:
             version=version[0:3]
             page=1
-            simlarSearch=False
+            similarSearch=False
     # print(json.dumps(contents))
         #返回的是json字符串，用loads恢复为list
     print(contents)
