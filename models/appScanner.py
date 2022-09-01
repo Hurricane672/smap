@@ -1,6 +1,8 @@
 # -*- coding =utf-8 -*-
 # @time:2022/8/29
 import traceback
+import sys
+sys.path.append('models')
 from AppScanner.TCP_NULL import TCP_Scan
 from AppScanner.ExtraScanMain import ExtraScan
 from AppScanner.spareScanner import spareScan
@@ -40,9 +42,6 @@ def main(target):
 
 if __name__ == '__main__':
     # target = ['10.21.145.59',80]
-<<<<<<< HEAD
     target = ['127.0.0.1',80]
-=======
     target = ['10.122.214.150',135]
->>>>>>> efdc3e7da9e5f16daaa0b6f795bb02230cc085d8
     main(target)

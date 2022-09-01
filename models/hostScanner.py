@@ -64,7 +64,6 @@ class Scan(threading.Thread):
             # print("发现在线主机" + self.ip)
             delay = str(int(delay * 1000)) + "ms"
             mac = get_mac(self.ip)
-            print(mac)
             vendor = ""
             try:
                 hostname = get_hostname(self.ip)
