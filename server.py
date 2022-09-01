@@ -106,46 +106,46 @@ def appInform():
 
 @app.route('/webInform', methods=['post'])
 def webInform():
-	# inAddress = request.json.get("inAddress")
-	# portList = portScanner.main(inAddress)
-	# return webScanner.main(inAddress, portList)
-	testData = {
-		"webInform": [
-			{
-				"port": "225555555555555",
-				"cdn": "cdnx232xxx",
-				"cms": "cmsxxxx",
-				"framework": "frame23workxxxx",
-				"frontend": "fronte23ndxxxx",
-				"lang": "langxxx",
-				"server": "serverxxxx",
-				"system": "systemxxxx",
-				"waf": "wafxxxx"
-			},
-			{
-				"port": "80",
-				"cdn": "cdnxxxx",
-				"cms": "cmsxxxx",
-				"framework": "f33rameworkxxxx",
-				"frontend": "fro33ntendxxxx",
-				"lang": "langxxx",
-				"server": "serverxxxx",
-				"system": "systemxxxx",
-				"waf": "wafxxxx"
-			},
-			{
-				"port": "9999",
-				"cdn": "cdnxxxx",
-				"cms": "cmsxx32xx",
-				"framework": "frameworkxxxx",
-				"frontend": "frontendxxxx",
-				"lang": "langxxx",
-				"server": "serverxxxx",
-				"system": "systemxxxx",
-				"waf": "wafxxxx"
-			},
-		]}
-	return testData
+	inAddress = request.json.get("inAddress")
+	portList = portScanner.main(inAddress)
+	return webScanner.main(inAddress, portList)
+	# testData = {
+	# 	"webInform": [
+	# 		{
+	# 			"port": "225555555555555",
+	# 			"cdn": "cdnx232xxx",
+	# 			"cms": "cmsxxxx",
+	# 			"framework": "frame23workxxxx",
+	# 			"frontend": "fronte23ndxxxx",
+	# 			"lang": "langxxx",
+	# 			"server": "serverxxxx",
+	# 			"system": "systemxxxx",
+	# 			"waf": "wafxxxx"
+	# 		},
+	# 		{
+	# 			"port": "80",
+	# 			"cdn": "cdnxxxx",
+	# 			"cms": "cmsxxxx",
+	# 			"framework": "f33rameworkxxxx",
+	# 			"frontend": "fro33ntendxxxx",
+	# 			"lang": "langxxx",
+	# 			"server": "serverxxxx",
+	# 			"system": "systemxxxx",
+	# 			"waf": "wafxxxx"
+	# 		},
+	# 		{
+	# 			"port": "9999",
+	# 			"cdn": "cdnxxxx",
+	# 			"cms": "cmsxx32xx",
+	# 			"framework": "frameworkxxxx",
+	# 			"frontend": "frontendxxxx",
+	# 			"lang": "langxxx",
+	# 			"server": "serverxxxx",
+	# 			"system": "systemxxxx",
+	# 			"waf": "wafxxxx"
+	# 		},
+	# 	]}
+	# return testData
 
 
 @app.route('/findVul', methods=['post'])
@@ -169,4 +169,4 @@ def findVul():
 
 
 if __name__ == '__main__':
-	app.run(debug=True, host="0.0.0.0")
+	app.run(debug=False,threaded=True,host="0.0.0.0")
