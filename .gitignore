@@ -5,3 +5,4 @@ __pycache__/
 !.gitignore
 /smap_dependence
 /.idea
+/venv

@@ -1,5 +1,5 @@
 from flask import Flask, redirect, request, url_for, render_template, jsonify
-from models import hostScanner, portScanner, routeGetter, topoDrawer, vulFinder, webScanner
+from models import hostScanner, portScanner, routeGetter, topoDrawer, vulFinder, webScanner, appScanner
 import os
 from flask_cors import CORS
 
@@ -69,78 +69,78 @@ def basicInform():
 
 @app.route('/appInform', methods=['post'])
 def appInform():
-    # inAddress = request.json.get("inAddress")
-    # portList = portScanner.main(inAddress)
-    # appInformList = []
-    # for port in portList:
-    #     appInformItem = appScanner.main([inAddress, port])
-    #     appInformItem["port"] = port
-    #     appInformList.append(appInformItem)
-    #return appInformList
-    testData = {
-        "appInform": [{"port": 2555552,
-                       "service": "ssjjjjjjjjjjjjjjjjjh",
-                       "version": "openssh 2.3.3"
-                       }, {
-                          "port": 2223,
-                          "service": "sssssssssssssh",
-                          "version": "openssh 2.3.3"
-                      }, {
-                          "port": 24,
-                          "service": "ssssssssssssssssh",
-                          "version": "openssh 2.3.3"
-                      }, {
-                          "port": 25,
-                          "service": "ssh",
-                          "version": "openssh 2.3.3"
-                      }
-                      ]
-    }
-    return testData
+    inAddress = request.json.get("inAddress")
+    portList = portScanner.main(inAddress)
+    appInformList = []
+    for port in portList:
+        appInformItem = appScanner.main([inAddress, port])
+        appInformItem["port"] = port
+        appInformList.append(appInformItem)
+    return appInformList
+    # testData = {
+    #     "appInform": [{"port": 2555552,
+    #                    "service": "ssjjjjjjjjjjjjjjjjjh",
+    #                    "version": "openssh 2.3.3"
+    #                    }, {
+    #                       "port": 2223,
+    #                       "service": "sssssssssssssh",
+    #                       "version": "openssh 2.3.3"
+    #                   }, {
+    #                       "port": 24,
+    #                       "service": "ssssssssssssssssh",
+    #                       "version": "openssh 2.3.3"
+    #                   }, {
+    #                       "port": 25,
+    #                       "service": "ssh",
+    #                       "version": "openssh 2.3.3"
+    #                   }
+    #                   ]
+    # }
+    # return testData
 
 
 @app.route('/webInform', methods=['post'])
 def webInform():
-    # inAddress = request.json.get("inAddress")
-    # portList = portScanner.main(inAddress)
-    # return webScanner.main(inAddress, portList)
-    testData = {
-        "webInform": [
-            {
-                "port": "225555555555555",
-                "cdn": "cdnx232xxx",
-                "cms": "cmsxxxx",
-                "framework": "frame23workxxxx",
-                "frontend": "fronte23ndxxxx",
-                "lang": "langxxx",
-                "server": "serverxxxx",
-                "system": "systemxxxx",
-                "waf": "wafxxxx"
-            },
-            {
-                "port": "80",
-                "cdn": "cdnxxxx",
-                "cms": "cmsxxxx",
-                "framework": "f33rameworkxxxx",
-                "frontend": "fro33ntendxxxx",
-                "lang": "langxxx",
-                "server": "serverxxxx",
-                "system": "systemxxxx",
-                "waf": "wafxxxx"
-            },
-            {
-                "port": "9999",
-                "cdn": "cdnxxxx",
-                "cms": "cmsxx32xx",
-                "framework": "frameworkxxxx",
-                "frontend": "frontendxxxx",
-                "lang": "langxxx",
-                "server": "serverxxxx",
-                "system": "systemxxxx",
-                "waf": "wafxxxx"
-            },
-        ]}
-    return testData
+    inAddress = request.json.get("inAddress")
+    portList = portScanner.main(inAddress)
+    return webScanner.main(inAddress, portList)
+    # testData = {
+    #     "webInform": [
+    #         {
+    #             "port": "225555555555555",
+    #             "cdn": "cdnx232xxx",
+    #             "cms": "cmsxxxx",
+    #             "framework": "frame23workxxxx",
+    #             "frontend": "fronte23ndxxxx",
+    #             "lang": "langxxx",
+    #             "server": "serverxxxx",
+    #             "system": "systemxxxx",
+    #             "waf": "wafxxxx"
+    #         },
+    #         {
+    #             "port": "80",
+    #             "cdn": "cdnxxxx",
+    #             "cms": "cmsxxxx",
+    #             "framework": "f33rameworkxxxx",
+    #             "frontend": "fro33ntendxxxx",
+    #             "lang": "langxxx",
+    #             "server": "serverxxxx",
+    #             "system": "systemxxxx",
+    #             "waf": "wafxxxx"
+    #         },
+    #         {
+    #             "port": "9999",
+    #             "cdn": "cdnxxxx",
+    #             "cms": "cmsxx32xx",
+    #             "framework": "frameworkxxxx",
+    #             "frontend": "frontendxxxx",
+    #             "lang": "langxxx",
+    #             "server": "serverxxxx",
+    #             "system": "systemxxxx",
+    #             "waf": "wafxxxx"
+    #         },
+    #     ]}
+    # return testData
 
 
 @app.route('/findVul', methods=['post'])
