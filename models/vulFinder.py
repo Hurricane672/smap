@@ -86,7 +86,7 @@ def main(Keywords):
         version=version[0]
     else:
         version=''
-    print((softWare[0],version))
+    #print((softWare[0],version))
 
     version=version.replace('.','\.')
 
