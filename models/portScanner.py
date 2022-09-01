@@ -22,6 +22,7 @@ class PortScan(object):
             except Exception as e:
                 return (ip, port, 'close')
 
+
     def callback(self, future):
         ip,port,status = future.result()
         if status == "open":
@@ -56,6 +57,8 @@ def main(target):
     #传参出错修复
     ps = PortScan([target],True,rate)
     return ps.async_tcp_port_scan()
+
+
 if __name__ == '__main__':
-    target = ['127.0.0.1']
+    target = '10.122.220.2'
     print(main(target))
