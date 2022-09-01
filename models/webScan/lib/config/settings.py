@@ -42,6 +42,7 @@ class Settings(object):
         #     raise FileNotFoundError("Invalid path for the configuration file")
 
         # Parse the configuration and merge it in dict
+        filepath = 'models/webScan/config/config.yml'
         with open(filepath, 'r') as yamlfile:
             try:
                 # Getting config from the file

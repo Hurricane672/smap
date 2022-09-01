@@ -17,10 +17,10 @@ def topo(ips):
 def main():
     # start_ip = input("Enter the start_ip: ")
     # end_ip = input("Enter the end_ip: ")
-    start_ip = "10.122.210.1"
-    end_ip = "10.122.210.255"
+    start_ip = "10.122.210.19"
+    end_ip = "10.122.210.19"
     info = hostScanner.main(start_ip, end_ip)
-    ips = info.keys()
+    info.keys()
     print(info)
     # p = multiprocessing.Process(targets=topo,args=(ips,))
     # p.daemon = True
@@ -28,8 +28,14 @@ def main():
     d0 = {}
     for ip, sys in info.items():
         ports = portScanner.main(ip)
-        d0[ip] = [sys] + ports
+        d0[ip] = [sys] + [ports]
     print(d0)
+
+    for ip, info in d0.items():
+        ip_list = info[1]
+        res = webScanner.main(ip, ip_list)
+        print(res)
+
     d1 = {}
     for ip, ports in d0.items():
         l0 = [ports[0]]
@@ -45,6 +51,4 @@ def main():
 
 
 if __name__ == '__main__':
-    res = webScanner.main('https://blog.csdn.net/', [''])
-    print(res)
     main()

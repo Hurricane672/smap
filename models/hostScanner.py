@@ -99,19 +99,12 @@ def main(start_ip, end_ip):
 
 
 if __name__ == "__main__":
-    start = "10.122.210.0"
-    end = "10.122.210.255"
-    ip_addrs = get_ip_range(start, end)
-    info = {}
-    thread = []
-    for ip_addr in ip_addrs:
-        td = Scan(ip_addr=ip_addr, host_info=info)
-        td.start()
-        thread.append(td)
-    while 1:
-        if not check_thread_alive(thread):
-            break
-    print(info)
+    start = "10.122.220.0"
+    end = "10.122.220.255"
+    print(main(start,end))
+    #lhl_2507 9.1 finish testing
+    #{'10.122.220.34': ['O6FE68W37RBANVY', '80-00-0B-D9-BF-F2', 'Intel Corporate（英特尔）', '15ms'], '10.122.220.2': ['LAPTOP-K6QN67KN', 'B0-60-88-EE-DD-56', 'Intel Corporate（英特尔）', '18ms'], '10.122.220.161': ['DESKTOP-SUNTM9A', '', '', '11ms'], '10.122.220.17': ['unknown', '', '', '24ms'], '10.122.220.12': ['unknown', '', '', '20ms'], '10.122.220.13': ['unknown', '', '', '22ms'], '10.122.220.3': ['unknown', '', '', '209ms'], '10.122.220.10': ['unknown', '', '', '129ms'], '10.122.220.49': ['unknown', '', '', '200ms'], '10.122.220.27': ['unknown', '', '', '694ms'], '10.122.220.8': ['unknown', '', '', '32ms'], '10.122.220.28': ['unknown', '', '', '56ms']}
+
 
     # ipaddrs = get_ip_range(start, end)
     # pt = prettytable.PrettyTable(field_names=("IP", "机器名", "MAC地址", "生产厂商", "延时"))

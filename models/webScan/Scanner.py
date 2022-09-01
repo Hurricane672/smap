@@ -13,7 +13,7 @@ from lib.utils.output import Output
 
 
 
-class Sitadel(object):
+class Scan(object):
     bn = banner.Banner()
     ma = manager
     url = None
@@ -99,6 +99,6 @@ class Sitadel(object):
 
 if __name__ == "__main__":
     try:
-        Sitadel('https://blog.csdn.net/').main()
+        Scan('https://blog.csdn.net/').main()
     except KeyboardInterrupt:
         sys.exit(output.Output().error("Interruption by the user, Quitting..."))
