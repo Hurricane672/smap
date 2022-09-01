@@ -124,7 +124,7 @@ def main(Keywords):
                         contents.append(Vulnerability)
                         continue
                 continue
-            match=re.compile(r'1.4',re.S)
+            match=re.compile(version,re.S)
             if len(re.findall(match,content[1]))!=0:
                 Vulnerability=[content[4],content[1],content[3]]
             
@@ -143,5 +143,5 @@ def main(Keywords):
     # return json.dumps(contents)
 
 if __name__ == "__main__":
-    result=main(Keywords='jQuery 1.4.6')
+    result=main(Keywords='jQuery 3.4.1')
     # print(re.findall(r'3\.4\.1','html 34.1'))
