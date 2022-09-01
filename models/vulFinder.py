@@ -67,23 +67,11 @@ def main(Keywords):
             if briefSearch==True:
                 if content[3]!='' and int(content[3][:4])<2019:
                     break
-            if '.x' in content[1]:
-                for i in range(0,10):
-                    tmp=content[1].replace('.x','.%d' %i)
-                    if len(re.findall(version,tmp))!=0:
-                        Vulnerability=' '.join((content[4],content[1],content[3]))
-                    
-                        print(Vulnerability)
-                        num+=1
-                        contents.append(Vulnerability)
-                        continue
-                continue
-            if len(re.findall(version,content[1]))!=0:
-                Vulnerability=' '.join((content[4],content[1],content[3]))
-            
-                print(Vulnerability)
-                num+=1
-                contents.append(Vulnerability)
+            Vulnerability=' '.join((content[4],content[1],content[3]))
+        
+            print(Vulnerability)
+            num+=1
+            contents.append(Vulnerability)
         page+=1
     # print(json.dumps(contents))
         #返回的是json字符串，用loads恢复为list
@@ -155,5 +143,5 @@ def main(Keywords):
     # return json.dumps(contents)
 
 if __name__ == "__main__":
-    result=main(Keywords='jQuery 1.4.1')
+    result=main(Keywords='jQuery')
     # print(re.findall(r'3\.4\.1','html 34.1'))
