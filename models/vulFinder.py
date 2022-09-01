@@ -37,7 +37,7 @@ def show_cve_content(res):
 def main(Keywords):
     num=0
     similarSearch=True
-    briefSearch=False
+    briefSearch=True
     matchware=r'([A-Z,a-z]+) *'
  
     Keyword=quote(Keywords)
@@ -67,7 +67,7 @@ def main(Keywords):
             if briefSearch==True:
                 if content[3]!='' and int(content[3][:4])<2019:
                     break
-            Vulnerability=[content[4],content[1],content[3]]
+            Vulnerability=' '.join((content[4],content[1],content[3]))
         
             print(Vulnerability)
             num+=1
@@ -80,11 +80,7 @@ def main(Keywords):
     
     print('开始近似搜索，耗时较多')
     softWare=re.findall(matchware,Keywords)
-    version=re.findall(r'([0-9]+\.?[0-9]?\.?.*?[0-9])',Keywords)
-    if len(version)>0:
-        version=version[0]
-    else:
-        version=''
+    version=re.search(r'([0-9]+\.?[0-9]?\.?.*?[0-9])',Keywords).group()
     print((softWare[0],version))
 
     version=version.replace('.','\.')
@@ -121,16 +117,16 @@ def main(Keywords):
                 for i in range(0,10):
                     tmp=content[1].replace('.x','.%d' %i)
                     if len(re.findall(version,tmp))!=0:
-                        Vulnerability=[content[4],content[1],content[3]]
+                        Vulnerability=' '.join((content[4],content[1],content[3]))
                     
                         print(Vulnerability)
                         num+=1
                         contents.append(Vulnerability)
                         continue
                 continue
-            match=re.compile(version,re.S)
+            match=re.compile(r'1.4',re.S)
             if len(re.findall(match,content[1]))!=0:
-                Vulnerability=[content[4],content[1],content[3]]
+                Vulnerability=' '.join((content[4],content[1],content[3]))
             
                 print(Vulnerability)
                 num+=1
@@ -147,5 +143,5 @@ def main(Keywords):
     # return json.dumps(contents)
 
 if __name__ == "__main__":
-    result=main(Keywords='msrpc mircosotf')
+    result=main(Keywords='jQuery')
     # print(re.findall(r'3\.4\.1','html 34.1'))
