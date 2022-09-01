@@ -20,7 +20,7 @@ class Scan(object):
     attack = None
     config = 'config/config.yml'
     cookie = None
-    fingerprint = ['cdn', 'cms', 'framework','frontend', 'header', 'language','server', 'system','waf']
+    fingerprint = ['cdn', 'cms', 'framework','frontend', 'header', 'lang', 'server', 'system', 'waf']
     proxy = None
     redirect = False
     risk = None

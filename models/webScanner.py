@@ -30,7 +30,7 @@ def main(ip, ports, is_IP):
             continue
         for item in res:
             if item[1] is not None:
-                dic[item[0]] = item[1]
+                dic[str(item[0]).lower()] = item[1]
         web_list.append(dic)
     print(web_list)
     return web_list
