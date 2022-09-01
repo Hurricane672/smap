@@ -40,6 +40,7 @@
               :headers="headers"
               :items="desserts"
               :items-per-page="5"
+              :loading="loading"
               class="elevation-1"
               color="black"
             >
@@ -305,6 +306,7 @@ export default {
       dialog1: false,
       title:'',
       titlecontent:'',
+      loading: false,
 
       //基本物理信息 basicInform
       // basicInform: this.$store.state.basicInform,
@@ -575,6 +577,7 @@ export default {
     //点击单个结点，触发事件
     this.network.on("selectNode", (params) => {
       console.log("点击", params.nodes);
+      this.loading = true
 
       basicInform({
         ipAddress: params.nodes.join(","),
@@ -616,7 +619,9 @@ export default {
 
         this.$store.commit("SET_webInform", webInform);
         this.webInform = webInform;
+        this.loading = false;
       });
+      
 
       // this.dialogVisible = true;
     });
