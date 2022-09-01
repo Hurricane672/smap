@@ -12,38 +12,40 @@ hostList = []
 
 @app.route('/topoList', methods=['post'])
 def topoList():
-    # global hostInfo
-    # global hostList
-    # fromIp = request.json.get("fromIp")
-    # toIp = request.json.get("toIp")
+    global hostInfo
+    global hostList
+    fromIp = request.json.get("fromIp")
+    toIp = request.json.get("toIp")
+
+    hostInfo = hostScanner.main(fromIp, toIp)
+    hostList = list(hostInfo.keys())
+
+    nodesArray = []
+    for ipA in hostList:
+        ipObj = {"id": ipA, "label": ipA}
+        nodesArray.append(ipObj)
+    nodesArray.append({"nodesArray": '127.0.0.1', "edgesArray": '127.0.0.1'})
+
+    edgesArray = routeGetter.main(hostList)
+
+    return {"nodesArray": nodesArray, "edgesArray": edgesArray}
+    # testData = {
+    #         "nodesArray": [
+    #             {"id": "192.168.1.1", "label": "192.168.1.1"},
+    #             {"id": "192.168.1.2", "label": "192.168.1.2"},
+    #             {"id": "192.168.1.3", "label": "192.168.1.3"},
+    #             {"id": "192.168.1.4", "label": "192.168.1.4"}
+    #         ],
+    #         "edgesArray": [
+    #             {"from": "192.168.1.1", "to": "192.168.1.1"},
+    #             {"from": "192.168.1.2", "to": "192.168.1.1"},
+    #             {"from": "192.168.1.3", "to": "192.168.1.1"},
+    #             {"from": "192.168.1.4", "to": "192.168.1.1"},
+    #             {"from": "192.168.1.3", "to": "192.168.1.3"},
+    #             {"from": "192.168.1.3", "to": "192.168.1.2"}
     #
-    # hostInfo = hostScanner.main(fromIp, toIp)
-    # hostList = list(hostInfo.keys())
-
-    # nodesArray = []
-    # for ipA in hostList:
-    #     ipObj = {"id": ipA, "label": ipA}
-    #     nodesArray.append(ipObj)
-    # edgesArray = routeGetter.main(hostList)
-
-    #return {"nodesArray": nodesArray, "edgesArray": edgesArray}
-    testData = {
-            "nodesArray": [
-                {"id": "192.168.1.1", "label": "192.168.1.1"},
-                {"id": "192.168.1.2", "label": "192.168.1.2"},
-                {"id": "192.168.1.3", "label": "192.168.1.3"},
-                {"id": "192.168.1.4", "label": "192.168.1.4"}
-            ],
-            "edgesArray": [
-                {"from": "192.168.1.1", "to": "192.168.1.1"},
-                {"from": "192.168.1.2", "to": "192.168.1.1"},
-                {"from": "192.168.1.3", "to": "192.168.1.1"},
-                {"from": "192.168.1.4", "to": "192.168.1.1"},
-                {"from": "192.168.1.3", "to": "192.168.1.3"},
-                {"from": "192.168.1.3", "to": "192.168.1.2"}
-
-            ]
-        }
+    #         ]
+    #     }
     return testData
 
 
@@ -153,14 +155,14 @@ def findVul():
     testData = {
         'vuls': [
             {
-                'cve_id': "CVE-2022-34305",
-                'info': 'Apache Tomcat 跨站脚本漏洞（CVE-2022-34305）',
+                'cve_id': "CV对方E-2022-34305",
+                'info': 'Apache Tomcat 跨站脚豆腐干地方本漏洞（CVE-2022-34305）',
                 'date': '2022-06-24'
             },
             {
-                'cve_id': "CVE-2022-34305",
-                'info': 'Apache Tomcat 跨站脚本漏洞（CVE-2022-34305）',
-                'date': '2022-06-24'
+                'cve_id': "CVE-202豆腐干地方-34305",
+                'info': 'Apache Tomcat 跨站脚到底本漏洞（CVE-2022-34305）',
+                'date': '2022-06的风格-24'
             }
         ],
     }

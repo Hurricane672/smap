@@ -303,11 +303,17 @@ out:
 
 #### 3、web应用信息 webInform
 
-In:
+**In:**
+
+```
 	{
 	"ipAddress":"192.168.1.1"
 	}
-Out:
+```
+
+**Out:**
+
+```
 	{
 		webInform:[
             {
@@ -344,9 +350,10 @@ Out:
                 "waf":"wafxxxx"
             },
         ]
-		
-
 	}
+```
+
+
 
 
 
