@@ -16,8 +16,15 @@ def main(ip, ports, is_IP):
         else:
             target = ip
         dic = dict()
-        dic['ip'] = ip
         dic['port'] = port
+        dic['cdn'] = ""
+        dic["cms"] = ""
+        dic["framework"] = ""
+        dic["frontend"] = ""
+        dic["lang"] = ""
+        dic["server"] = ""
+        dic["system"] = ""
+        dic["waf"] = ""
         res = Scanner.Scan(target).main()
         if res is None:
             continue
@@ -29,6 +36,3 @@ def main(ip, ports, is_IP):
     return web_list
 
 
-if __name__ == 'main':
-    res = main("10.122.210.19", [25, 110, 135, 139, 443, 445, 902, 912], 1)
-    print(res)
