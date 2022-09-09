@@ -116,8 +116,8 @@ def findVul():
 #             ]
 #         }
 #     return testData
-#
-#
+# #
+# #
 # @app.route('/basicInform', methods=['post'])
 # def basicInform():
 #
@@ -131,7 +131,7 @@ def findVul():
 #     }
 #     return testData
 #
-#
+# #
 # @app.route('/appInform', methods=['post'])
 # def appInform():
 #
@@ -163,8 +163,8 @@ def findVul():
 #      {'port': 903, 'service': 'ssl/vmware-auth', 'version': '1.10'}, {'port': 5000, 'service': 'upnp', 'version': ''}]
 #
 #     return testData
-#
-#
+# #
+# #
 # @app.route('/webInform', methods=['post'])
 # def webInform():
 #     testData ={"webInform":[{'port': 7, 'service': 'echo', 'version': ''}, {'port': 9, 'service': 'discard', 'version': ''}, {'port': 13, 'service': 'daytime', 'version': ''}, {'port': 17, 'service': 'qotd', 'version': ''}, {'port': 19, 'service': 'chargen', 'version': ''}, {'port': 80, 'service': 'http', 'version': '1.1'}, {'port': 135, 'service': 'msrpc', 'version': 'Microsoft Windows RPC'}, {'port': 139, 'service': 'netbios-ssn', 'version': 'Microsoft Windows netbios-ssn'}, {'port': 443, 'service': 'http', 'version': '1.1'}, {'port': 445, 'service': 'microsoft-ds', 'version': ''}, {'port': 903, 'service': 'ssl/vmware-auth', 'version': '1.10'}, {'port': 5000, 'service': 'upnp', 'version': ''}]}
@@ -205,8 +205,8 @@ def findVul():
 #     #         },
 #     #     ]}
 #     return testData
-#
-#
+# #
+# #
 # @app.route('/findVul', methods=['post'])
 # def findVul():
 #

@@ -37,7 +37,7 @@ def show_cve_content(res):
 def main(Keywords):
     num=0
     similarSearch=True
-    briefSearch=False
+    briefSearch=True
     matchware=r'([A-Z,a-z]+) *'
  
     Keyword=quote(Keywords)
@@ -65,7 +65,7 @@ def main(Keywords):
             if flag==0 and content[4]=='"无CVE"':
                 continue
             if briefSearch==True:
-                if content[3]!='' and int(content[3][:4])<2019:
+                if content[3]!='' and int(content[3][:4])<2021:
                     break
             Vulnerability=[content[4],content[1],content[3]]
         
@@ -116,7 +116,7 @@ def main(Keywords):
             if flag==0 and content[4]=='"无CVE"' or content[3]=='':
                 continue
             if briefSearch==True:
-                if content[3]!='' and int(content[3][:4])<2019:
+                if content[3]!='' and int(content[3][:4])<2021:
                     break
             if '.x' in content[1]:
                 for i in range(0,10):
